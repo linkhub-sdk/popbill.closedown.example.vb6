@@ -339,7 +339,7 @@ Private Sub btnCheckCorpNums_Click()
     Dim resultList As Collection
     Dim CorpNumList As New Collection
     
-    '조회할 사업자번호 배열
+    '조회할 사업자번호 배열, 최대 1000건
     CorpNumList.Add "1234567890"
     CorpNumList.Add "4108600477"
         
