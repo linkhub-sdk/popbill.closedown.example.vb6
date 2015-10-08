@@ -1,51 +1,19 @@
 VERSION 5.00
 Begin VB.Form frmExample 
    Caption         =   "팝빌 휴폐업조회 SDK 예제"
-   ClientHeight    =   4140
+   ClientHeight    =   5040
    ClientLeft      =   60
    ClientTop       =   450
-   ClientWidth     =   9150
+   ClientWidth     =   10995
    LinkTopic       =   "Form1"
-   ScaleHeight     =   4140
-   ScaleWidth      =   9150
+   ScaleHeight     =   5040
+   ScaleWidth      =   10995
    StartUpPosition =   2  '화면 가운데
-   Begin VB.CommandButton btnCheckCorpNums 
-      Caption         =   "대량조회"
-      Height          =   375
-      Left            =   5760
-      TabIndex        =   14
-      Top             =   3120
-      Width           =   1215
-   End
-   Begin VB.CommandButton btnCheckCorpNum 
-      Caption         =   "단건조회"
-      Height          =   375
-      Left            =   4440
-      TabIndex        =   13
-      Top             =   3120
-      Width           =   1215
-   End
-   Begin VB.TextBox txtCheckCorpNum 
-      Height          =   270
-      Left            =   2400
-      TabIndex        =   12
-      Text            =   "4108600477"
-      Top             =   3195
-      Width           =   1815
-   End
-   Begin VB.CommandButton btnGetPartnerBalance 
-      Caption         =   "파트너포인트 확인"
-      Height          =   375
-      Left            =   6600
-      TabIndex        =   10
-      Top             =   1485
-      Width           =   1695
-   End
    Begin VB.CommandButton btnGetPopbillURL_CHRG 
       Caption         =   "포인트 충전 URL"
       Height          =   375
       Left            =   4560
-      TabIndex        =   9
+      TabIndex        =   7
       Top             =   1965
       Width           =   1575
    End
@@ -53,7 +21,7 @@ Begin VB.Form frmExample
       Caption         =   "팝빌 로그인 URL"
       Height          =   375
       Left            =   4560
-      TabIndex        =   8
+      TabIndex        =   6
       Top             =   1485
       Width           =   1575
    End
@@ -61,33 +29,17 @@ Begin VB.Form frmExample
       Caption         =   "조회단가 확인"
       Height          =   375
       Left            =   2520
-      TabIndex        =   7
+      TabIndex        =   5
       Top             =   1965
-      Width           =   1575
+      Width           =   1695
    End
    Begin VB.CommandButton btnGetBalance 
       Caption         =   "잔여포인트 확인"
       Height          =   375
       Left            =   2520
-      TabIndex        =   6
-      Top             =   1485
-      Width           =   1575
-   End
-   Begin VB.CommandButton btnJoinMember 
-      Caption         =   "회원가입"
-      Height          =   375
-      Left            =   600
-      TabIndex        =   5
-      Top             =   1965
-      Width           =   1455
-   End
-   Begin VB.CommandButton btnCheckIsMember 
-      Caption         =   "가입여부 확인"
-      Height          =   375
-      Left            =   600
       TabIndex        =   4
       Top             =   1485
-      Width           =   1455
+      Width           =   1695
    End
    Begin VB.TextBox txtUserID 
       Height          =   270
@@ -107,67 +59,163 @@ Begin VB.Form frmExample
    End
    Begin VB.Frame Frame1 
       Caption         =   "회원정보"
-      Height          =   1335
-      Left            =   480
-      TabIndex        =   15
+      Height          =   1815
+      Left            =   600
+      TabIndex        =   8
       Top             =   1245
       Width           =   1695
+      Begin VB.CommandButton btnJoinMember 
+         Caption         =   "회원가입"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   22
+         Top             =   1200
+         Width           =   1455
+      End
+      Begin VB.CommandButton btnCheckIsMember 
+         Caption         =   "가입여부 확인"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   21
+         Top             =   240
+         Width           =   1455
+      End
+      Begin VB.CommandButton btnCheckID 
+         Caption         =   "ID 중복 확인"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   19
+         Top             =   720
+         Width           =   1455
+      End
    End
    Begin VB.Frame Frame2 
       Caption         =   "포인트 관련"
-      Height          =   1335
+      Height          =   1815
       Left            =   2400
-      TabIndex        =   16
+      TabIndex        =   9
       Top             =   1200
-      Width           =   1815
+      Width           =   1935
+      Begin VB.CommandButton btnGetPartnerBalance 
+         Caption         =   "파트너포인트 확인"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   18
+         Top             =   1200
+         Width           =   1695
+      End
    End
    Begin VB.Frame Frame3 
       Caption         =   "팝빌 URL 관련"
       Height          =   1335
       Left            =   4440
-      TabIndex        =   17
+      TabIndex        =   10
       Top             =   1200
       Width           =   1815
    End
    Begin VB.Frame Frame4 
-      Caption         =   "파트너 관련"
-      Height          =   1335
-      Left            =   6480
-      TabIndex        =   18
+      Caption         =   "담당자 관련"
+      Height          =   1815
+      Left            =   6360
+      TabIndex        =   11
       Top             =   1200
       Width           =   1935
+      Begin VB.CommandButton btnUpdateContact 
+         Caption         =   "담당자 정보 수정"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   25
+         Top             =   1200
+         Width           =   1695
+      End
+      Begin VB.CommandButton btnListContact 
+         Caption         =   "담당자 목록 조회"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   24
+         Top             =   720
+         Width           =   1695
+      End
+      Begin VB.CommandButton btnRegistContact 
+         Caption         =   "담당자 추가"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   23
+         Top             =   240
+         Width           =   1695
+      End
    End
    Begin VB.Frame Frame5 
       Caption         =   "휴폐업조회"
-      Height          =   855
+      Height          =   975
       Left            =   360
-      TabIndex        =   19
-      Top             =   2880
+      TabIndex        =   12
+      Top             =   3600
       Width           =   8295
+      Begin VB.CommandButton btnCheckCorpNums 
+         Caption         =   "대량조회"
+         Height          =   495
+         Left            =   5520
+         TabIndex        =   17
+         Top             =   240
+         Width           =   1215
+      End
+      Begin VB.CommandButton btnCheckCorpNum 
+         Caption         =   "단건조회"
+         Height          =   495
+         Left            =   4080
+         TabIndex        =   16
+         Top             =   240
+         Width           =   1215
+      End
+      Begin VB.TextBox txtCheckCorpNum 
+         Height          =   270
+         Left            =   2040
+         TabIndex        =   15
+         Text            =   "4108600477"
+         Top             =   360
+         Width           =   1815
+      End
       Begin VB.Label Label4 
          Caption         =   "조회할 사업자번호 : "
          Height          =   255
          Left            =   240
-         TabIndex        =   20
+         TabIndex        =   13
          Top             =   360
          Width           =   1695
       End
    End
    Begin VB.Frame Frame6 
       Caption         =   "팝빌기본 API"
-      Height          =   1815
+      Height          =   2295
       Left            =   360
-      TabIndex        =   21
+      TabIndex        =   14
       Top             =   960
-      Width           =   8295
-   End
-   Begin VB.Label Label3 
-      Caption         =   "조회할 사업자번호 : "
-      Height          =   255
-      Left            =   480
-      TabIndex        =   11
-      Top             =   3240
-      Width           =   1695
+      Width           =   10095
+      Begin VB.Frame Frame7 
+         Caption         =   "회사정보 관련"
+         Height          =   1695
+         Left            =   8040
+         TabIndex        =   20
+         Top             =   240
+         Width           =   1815
+         Begin VB.CommandButton btnUpdateCorpInfo 
+            Caption         =   "회사정보 수정"
+            Height          =   375
+            Left            =   120
+            TabIndex        =   27
+            Top             =   720
+            Width           =   1575
+         End
+         Begin VB.CommandButton btnGetCorpInfo 
+            Caption         =   "회사정보 조회"
+            Height          =   375
+            Left            =   120
+            TabIndex        =   26
+            Top             =   240
+            Width           =   1575
+         End
+      End
    End
    Begin VB.Label Label2 
       Caption         =   "팝빌회원 아이디 : "
@@ -199,6 +247,20 @@ Private Const linkID = "TESTER"
 Private Const SecretKey = "SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I="
 
 Private ClosedownService As New PBCDService
+
+Private Sub btnCheckID_Click()
+    Dim Response As PBResponse
+    
+    Set Response = ClosedownService.CheckID(txtUserID.Text)
+    
+    If Response Is Nothing Then
+        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    MsgBox ("[" + CStr(Response.code) + "] " + Response.message)
+End Sub
+
 '가입여부 확인
 Private Sub btnCheckIsMember_Click()
     Dim Response As PBResponse
@@ -212,6 +274,28 @@ Private Sub btnCheckIsMember_Click()
     
     MsgBox (CStr(Response.code) + " | " + Response.message)
 End Sub
+
+Private Sub btnGetCorpInfo_Click()
+    Dim CorpInfo As PBCorpInfo
+    
+    Set CorpInfo = ClosedownService.GetCorpInfo(txtCorpNum.Text, txtUserID.Text)
+     
+    If CorpInfo Is Nothing Then
+        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    Dim tmp As String
+    
+    tmp = tmp + "ceoname : " + CorpInfo.CEOName + vbCrLf
+    tmp = tmp + "corpName : " + CorpInfo.CorpName + vbCrLf
+    tmp = tmp + "addr : " + CorpInfo.Addr + vbCrLf
+    tmp = tmp + "bizType : " + CorpInfo.BizType + vbCrLf
+    tmp = tmp + "bizClass : " + CorpInfo.BizClass + vbCrLf
+    
+    MsgBox tmp
+End Sub
+
 '회원가입
 Private Sub btnJoinMember_Click()
     Dim joinData As New PBJoinForm
@@ -256,6 +340,55 @@ Private Sub btnGetBalance_Click()
     
     MsgBox "잔여포인트 : " + CStr(balance)
 End Sub
+
+Private Sub btnListContact_Click()
+    Dim resultList As Collection
+        
+    Set resultList = ClosedownService.ListContact(txtCorpNum.Text, txtUserID.Text)
+     
+    If resultList Is Nothing Then
+        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    Dim tmp As String
+    
+    tmp = "id | email | hp | personName | searchAllAllowYN | tel | fax | mgrYN | regDT " + vbCrLf
+    
+    Dim info As PBContactInfo
+    
+    For Each info In resultList
+        tmp = tmp + info.ID + " | " + info.email + " | " + info.hp + " | " + info.personName + " | " + CStr(info.searchAllAllowYN) _
+                + info.tel + " | " + info.fax + " | " + CStr(info.mgrYN) + " | " + info.regDT + vbCrLf
+    Next
+    
+    MsgBox tmp
+End Sub
+
+Private Sub btnRegistContact_Click()
+    Dim joinData As New PBContactInfo
+    Dim Response As PBResponse
+    
+    joinData.ID = "testkorea_20151007"      '담당자 아이디
+    joinData.PWD = "test@test.com"          '비밀번호
+    joinData.personName = "담당자명"        '담당자명
+    joinData.tel = "070-1234-1234"          '연락처
+    joinData.hp = "010-1234-1234"           '휴대폰번호
+    joinData.email = "test@test.com"        '이메일 주소
+    joinData.fax = "070-1234-1234"          '팩스번호
+    joinData.searchAllAllowYN = True        '전체조회여부, Ture-회사조회, False-개인조회
+    joinData.mgrYN = False                  '관리자 권한여부
+        
+    Set Response = ClosedownService.RegistContact(txtCorpNum.Text, joinData, txtUserID.Text)
+    
+    If Response Is Nothing Then
+        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    MsgBox ("[" + CStr(Response.code) + "] " + Response.message)
+End Sub
+
 '조회단가 확인
 Private Sub btnUnitCost_Click()
     Dim unitCost As Double
@@ -329,6 +462,49 @@ Private Sub btnCheckCorpNum_Click()
     
     MsgBox tmp, , "휴폐업조회 - 단건"
 End Sub
+
+Private Sub btnUpdateContact_Click()
+    Dim joinData As New PBContactInfo
+    Dim Response As PBResponse
+    
+    joinData.personName = "담당자명_수정"  '담당자명
+    joinData.tel = "070-1234-1234"         '연락처
+    joinData.hp = "010-1234-1234"          '휴대폰번호
+    joinData.email = "test@test.com"       '이메일 주소
+    joinData.fax = "070-1234-1234"         '팩스번호
+    joinData.searchAllAllowYN = True       '전체조회여부, Ture-회사조회, False-개인조
+    joinData.mgrYN = False                 '관리자 권한여부
+                
+    Set Response = ClosedownService.UpdateContact(txtCorpNum.Text, joinData, txtUserID.Text)
+    
+    If Response Is Nothing Then
+        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    MsgBox ("[" + CStr(Response.code) + "] " + Response.message)
+End Sub
+
+Private Sub btnUpdateCorpInfo_Click()
+    Dim CorpInfo As New PBCorpInfo
+    Dim Response As PBResponse
+    
+    CorpInfo.CEOName = "대표자"         '대표자명
+    CorpInfo.CorpName = "상호_수정"          '상호명
+    CorpInfo.Addr = "서울특별시"        '주소
+    CorpInfo.BizType = "업태"           '업태
+    CorpInfo.BizClass = "업종"          '업종
+    
+    Set Response = ClosedownService.UpdateCorpInfo(txtCorpNum.Text, CorpInfo, txtUserID.Text)
+    
+    If Response Is Nothing Then
+        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    MsgBox ("[" + CStr(Response.code) + "] " + Response.message)
+End Sub
+
 Private Sub txtCheckCorpNum_KeyPress(KeyAscii As Integer)
     If KeyAscii = 13 Then
         Call btnCheckCorpNum_Click
