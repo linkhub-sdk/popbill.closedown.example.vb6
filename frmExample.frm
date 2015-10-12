@@ -272,7 +272,7 @@ Private Sub btnCheckIsMember_Click()
         Exit Sub
     End If
     
-    MsgBox (CStr(Response.code) + " | " + Response.message)
+    MsgBox ("[" + CStr(Response.code) + "] " + Response.message)
 End Sub
 
 Private Sub btnGetCorpInfo_Click()
@@ -324,7 +324,7 @@ Private Sub btnJoinMember_Click()
         Exit Sub
     End If
     
-    MsgBox (CStr(Response.code) + " | " + Response.message)
+    MsgBox ("[" + CStr(Response.code) + "] " + Response.message)
 End Sub
 '잔여포인트 확인
 Private Sub btnGetBalance_Click()
