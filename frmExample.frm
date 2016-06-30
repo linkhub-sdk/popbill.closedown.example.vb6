@@ -59,10 +59,10 @@ Begin VB.Form frmExample
    End
    Begin VB.Frame Frame1 
       Caption         =   "회원정보"
-      Height          =   1815
+      Height          =   2175
       Left            =   600
       TabIndex        =   8
-      Top             =   1245
+      Top             =   1200
       Width           =   1695
       Begin VB.CommandButton btnJoinMember 
          Caption         =   "회원가입"
@@ -91,11 +91,19 @@ Begin VB.Form frmExample
    End
    Begin VB.Frame Frame2 
       Caption         =   "포인트 관련"
-      Height          =   1815
+      Height          =   2175
       Left            =   2400
       TabIndex        =   9
       Top             =   1200
       Width           =   1935
+      Begin VB.CommandButton btnGetChargeInfo 
+         Caption         =   "과금정보 확인"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   28
+         Top             =   1680
+         Width           =   1695
+      End
       Begin VB.CommandButton btnGetPartnerBalance 
          Caption         =   "파트너포인트 확인"
          Height          =   375
@@ -107,7 +115,7 @@ Begin VB.Form frmExample
    End
    Begin VB.Frame Frame3 
       Caption         =   "팝빌 URL 관련"
-      Height          =   1335
+      Height          =   2175
       Left            =   4440
       TabIndex        =   10
       Top             =   1200
@@ -115,7 +123,7 @@ Begin VB.Form frmExample
    End
    Begin VB.Frame Frame4 
       Caption         =   "담당자 관련"
-      Height          =   1815
+      Height          =   2175
       Left            =   6360
       TabIndex        =   11
       Top             =   1200
@@ -187,14 +195,14 @@ Begin VB.Form frmExample
    End
    Begin VB.Frame Frame6 
       Caption         =   "팝빌기본 API"
-      Height          =   2295
+      Height          =   2535
       Left            =   360
       TabIndex        =   14
       Top             =   960
       Width           =   10095
       Begin VB.Frame Frame7 
          Caption         =   "회사정보 관련"
-         Height          =   1695
+         Height          =   2175
          Left            =   8040
          TabIndex        =   20
          Top             =   240
@@ -273,6 +281,25 @@ Private Sub btnCheckIsMember_Click()
     End If
     
     MsgBox ("[" + CStr(Response.code) + "] " + Response.message)
+End Sub
+
+Private Sub btnGetChargeInfo_Click()
+    Dim ChargeInfo As PBChargeInfo
+    
+    Set ChargeInfo = ClosedownService.GetChargeInfo(txtCorpNum.Text, txtUserID.Text)
+     
+    If ChargeInfo Is Nothing Then
+        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    Dim tmp As String
+    
+    tmp = tmp + "unitCost (단가[정액제-월요금, 정량제-조회단가]) : " + ChargeInfo.unitCost + vbCrLf
+    tmp = tmp + "chargeMethod (과금유형) : " + ChargeInfo.chargeMethod + vbCrLf
+    tmp = tmp + "rateSystem (과금제도) : " + ChargeInfo.rateSystem + vbCrLf
+    
+    MsgBox tmp
 End Sub
 
 Private Sub btnGetCorpInfo_Click()

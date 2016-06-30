@@ -10,6 +10,7 @@ Class=PBCDService; PopbillClosedown\PBCDService.cls
 Class=PBJoinForm; PopbillClosedown\PBJoinForm.cls
 Class=PBContactInfo; PopbillClosedown\PBContactInfo.cls
 Class=PBCorpInfo; PopbillClosedown\PBCorpInfo.cls
+Class=PBChargeInfo; PopbillClosedown\PBChargeInfo.cls
 IconForm="frmExample"
 Startup="frmExample"
 Command32=""
