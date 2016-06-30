@@ -295,7 +295,7 @@ Private Sub btnGetChargeInfo_Click()
     
     Dim tmp As String
     
-    tmp = tmp + "unitCost (단가[정액제-월요금, 정량제-조회단가]) : " + ChargeInfo.unitCost + vbCrLf
+    tmp = tmp + "unitCost (단가[정액제-월요금, 종량제-조회단가]) : " + ChargeInfo.unitCost + vbCrLf
     tmp = tmp + "chargeMethod (과금유형) : " + ChargeInfo.chargeMethod + vbCrLf
     tmp = tmp + "rateSystem (과금제도) : " + ChargeInfo.rateSystem + vbCrLf
     
