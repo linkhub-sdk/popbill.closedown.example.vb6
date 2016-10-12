@@ -180,7 +180,7 @@ Begin VB.Form frmExample
          Height          =   270
          Left            =   2040
          TabIndex        =   15
-         Text            =   "4108600477"
+         Text            =   "6798700433"
          Top             =   360
          Width           =   1815
       End
@@ -290,11 +290,11 @@ Private Sub btnCheckID_Click()
     Set Response = ClosedownService.CheckID(txtUserID.Text)
     
     If Response Is Nothing Then
-        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
-    MsgBox ("[" + CStr(Response.code) + "] " + Response.message)
+    MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
 End Sub
 
 '=========================================================================
@@ -308,11 +308,11 @@ Private Sub btnCheckIsMember_Click()
     Set Response = ClosedownService.CheckIsMember(txtCorpNum.Text, linkID)
     
     If Response Is Nothing Then
-        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
-    MsgBox ("[" + CStr(Response.code) + "] " + Response.message)
+    MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
 End Sub
 
 '=========================================================================
@@ -325,7 +325,7 @@ Private Sub btnGetChargeInfo_Click()
     Set ChargeInfo = ClosedownService.GetChargeInfo(txtCorpNum.Text, txtUserID.Text)
      
     If ChargeInfo Is Nothing Then
-        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
@@ -344,15 +344,14 @@ End Sub
 
 Private Sub btnGetCorpInfo_Click()
     Dim CorpInfo As PBCorpInfo
+    Dim tmp As String
     
     Set CorpInfo = ClosedownService.GetCorpInfo(txtCorpNum.Text, txtUserID.Text)
      
     If CorpInfo Is Nothing Then
-        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
-    
-    Dim tmp As String
     
     tmp = tmp + "ceoname(대표자성명) : " + CorpInfo.CEOName + vbCrLf
     tmp = tmp + "corpName(상호명) : " + CorpInfo.CorpName + vbCrLf
@@ -416,11 +415,11 @@ Private Sub btnJoinMember_Click()
     Set Response = ClosedownService.JoinMember(joinData)
     
     If Response Is Nothing Then
-        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
-    MsgBox ("[" + CStr(Response.code) + "] " + Response.message)
+    MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
 End Sub
 
 '=========================================================================
@@ -436,7 +435,7 @@ Private Sub btnGetBalance_Click()
     
     If balance < 0 Then
         
-        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
@@ -453,7 +452,7 @@ Private Sub btnListContact_Click()
     Set resultList = ClosedownService.ListContact(txtCorpNum.Text, txtUserID.Text)
      
     If resultList Is Nothing Then
-        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
@@ -509,11 +508,11 @@ Private Sub btnRegistContact_Click()
     Set Response = ClosedownService.RegistContact(txtCorpNum.Text, joinData, txtUserID.Text)
     
     If Response Is Nothing Then
-        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
-    MsgBox ("[" + CStr(Response.code) + "] " + Response.message)
+    MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
 End Sub
 
 '=========================================================================
@@ -526,7 +525,7 @@ Private Sub btnUnitCost_Click()
     unitCost = ClosedownService.GetUnitCost(txtCorpNum.Text)
     
     If unitCost < 0 Then
-        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
@@ -544,7 +543,7 @@ Private Sub btnGetPopbillURL_LOGIN_Click()
     url = ClosedownService.GetPopbillURL(txtCorpNum.Text, txtUserID.Text, "LOGIN")
     
     If url = "" Then
-        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     MsgBox "URL : " + vbCrLf + url
@@ -561,7 +560,7 @@ Private Sub btnGetPopbillURL_CHRG_Click()
     url = ClosedownService.GetPopbillURL(txtCorpNum.Text, txtUserID.Text, "CHRG")
     
     If url = "" Then
-         MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     MsgBox "URL : " + vbCrLf + url
@@ -579,7 +578,7 @@ Private Sub btnGetPartnerBalance_Click()
     balance = ClosedownService.GetPartnerBalance(txtCorpNum.Text)
     
     If balance < 0 Then
-        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
@@ -597,7 +596,7 @@ Private Sub btnCheckCorpNum_Click()
     Set CorpState = ClosedownService.CheckCorpNum(txtCorpNum.Text, txtCheckCorpNum.Text)
     
     If CorpState Is Nothing Then
-        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "]" + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
@@ -645,11 +644,11 @@ Private Sub btnUpdateContact_Click()
     Set Response = ClosedownService.UpdateContact(txtCorpNum.Text, joinData, txtUserID.Text)
     
     If Response Is Nothing Then
-        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
-    MsgBox ("[" + CStr(Response.code) + "] " + Response.message)
+    MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
 End Sub
 
 '=========================================================================
@@ -678,11 +677,11 @@ Private Sub btnUpdateCorpInfo_Click()
     Set Response = ClosedownService.UpdateCorpInfo(txtCorpNum.Text, CorpInfo, txtUserID.Text)
     
     If Response Is Nothing Then
-        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
-    MsgBox ("[" + CStr(Response.code) + "] " + Response.message)
+    MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
 End Sub
 
 Private Sub txtCheckCorpNum_KeyPress(KeyAscii As Integer)
@@ -698,20 +697,20 @@ End Sub
 Private Sub btnCheckCorpNums_Click()
     Dim resultList As Collection
     Dim CorpNumList As New Collection
+    Dim tmp As String
+    Dim state As PBCorpState
     
     '조회할 사업자번호 배열, 최대 1000건
     CorpNumList.Add "1234567890"
-    CorpNumList.Add "4108600477"
+    CorpNumList.Add "6798700433"
+    CorpNumList.Add "1111111111"
         
     Set resultList = ClosedownService.CheckCorpNums(txtCorpNum.Text, CorpNumList)
      
     If resultList Is Nothing Then
-        MsgBox ("[" + CStr(ClosedownService.LastErrCode) + "] " + ClosedownService.LastErrMessage)
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
-    
-    Dim tmp As String
-    Dim state As PBCorpState
     
     tmp = tmp + "* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업" + vbCrLf
     tmp = tmp + "* type (사업 유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관" + vbCrLf + vbCrLf
