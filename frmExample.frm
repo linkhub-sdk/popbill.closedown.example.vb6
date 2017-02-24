@@ -321,7 +321,7 @@ End Sub
 Private Sub btnGetChargeInfo_Click()
     Dim ChargeInfo As PBChargeInfo
     
-    Set ChargeInfo = ClosedownService.GetChargeInfo(txtCorpNum.Text, txtUserID.Text)
+    Set ChargeInfo = ClosedownService.GetChargeInfo(txtCorpNum.Text)
      
     If ChargeInfo Is Nothing Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
@@ -345,7 +345,7 @@ Private Sub btnGetCorpInfo_Click()
     Dim CorpInfo As PBCorpInfo
     Dim tmp As String
     
-    Set CorpInfo = ClosedownService.GetCorpInfo(txtCorpNum.Text, txtUserID.Text)
+    Set CorpInfo = ClosedownService.GetCorpInfo(txtCorpNum.Text)
      
     If CorpInfo Is Nothing Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
@@ -448,7 +448,7 @@ End Sub
 Private Sub btnListContact_Click()
     Dim resultList As Collection
         
-    Set resultList = ClosedownService.ListContact(txtCorpNum.Text, txtUserID.Text)
+    Set resultList = ClosedownService.ListContact(txtCorpNum.Text)
      
     If resultList Is Nothing Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
@@ -504,7 +504,7 @@ Private Sub btnRegistContact_Click()
     '관리자 권한여부
     joinData.mgrYN = False
         
-    Set Response = ClosedownService.RegistContact(txtCorpNum.Text, joinData, txtUserID.Text)
+    Set Response = ClosedownService.RegistContact(txtCorpNum.Text, joinData)
     
     If Response Is Nothing Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
@@ -673,7 +673,7 @@ Private Sub btnUpdateCorpInfo_Click()
     '종목
     CorpInfo.BizClass = "종목"
     
-    Set Response = ClosedownService.UpdateCorpInfo(txtCorpNum.Text, CorpInfo, txtUserID.Text)
+    Set Response = ClosedownService.UpdateCorpInfo(txtCorpNum.Text, CorpInfo)
     
     If Response Is Nothing Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
