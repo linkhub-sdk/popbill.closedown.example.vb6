@@ -251,10 +251,10 @@ Attribute VB_Exposed = False
 '
 ' 팝빌 휴폐업조회 API VB 6.0 SDK Example
 '
-' - VB6 SDK 연동환경 설정방법 안내 :
-' - 업데이트 일자 : 2016-10-12
-' - 연동 기술지원 연락처 : 1600-8536 / 070-4504-2991 (직통 / 정요한대리)
-' - 연동 기술지원 이메일 : dev@linkhub.co.kr
+' - VB6 SDK 연동환경 설정방법 안내 : http://blog.linkhub.co.kr/569
+' - 업데이트 일자 : 2017-05-24
+' - 연동 기술지원 연락처 : 1600-8536 / 070-4504-2991
+' - 연동 기술지원 이메일 : code@linkhub.co.kr
 '
 ' <테스트 연동개발 준비사항>
 ' 1) 25, 28번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를
@@ -618,6 +618,9 @@ End Sub
 Private Sub btnUpdateContact_Click()
     Dim joinData As New PBContactInfo
     Dim Response As PBResponse
+    
+    '담당자 아이디
+    joinData.ID = txtUserID.Text
     
     '담당자명
     joinData.personName = "담당자명_수정"
