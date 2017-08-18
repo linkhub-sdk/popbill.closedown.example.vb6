@@ -606,6 +606,7 @@ Private Sub btnCheckCorpNum_Click()
     tmp = tmp + "state (휴폐업상태) : " + CorpState.state + vbCrLf
     tmp = tmp + "type (사업유형) : " + CorpState.ctype + vbCrLf
     tmp = tmp + "stateDate(휴폐업일자) : " + CorpState.stateDate + vbCrLf
+    tmp = tmp + "typeDate(과세유형전환일자) : " + CorpState.typeDate + vbCrLf
     tmp = tmp + "checkDate(국세청 확인일자) : " + CorpState.checkDate
     
     MsgBox tmp, , "휴폐업조회 - 단건"
@@ -705,7 +706,7 @@ Private Sub btnCheckCorpNums_Click()
     '조회할 사업자번호 배열, 최대 1000건
     CorpNumList.Add "1234567890"
     CorpNumList.Add "6798700433"
-    CorpNumList.Add "1111111111"
+    CorpNumList.Add "1231212312"
         
     Set resultList = ClosedownService.CheckCorpNums(txtCorpNum.Text, CorpNumList)
      
@@ -722,6 +723,7 @@ Private Sub btnCheckCorpNums_Click()
         tmp = tmp + "state (휴폐업상태) : " + state.state + vbCrLf
         tmp = tmp + "type (사업유형) : " + state.ctype + vbCrLf
         tmp = tmp + "stateDate(휴폐업일자) : " + state.stateDate + vbCrLf
+        tmp = tmp + "typeDate(과세유형전환일자) : " + state.typeDate + vbCrLf
         tmp = tmp + "checkDate(국세청 확인일자) : " + state.checkDate + vbCrLf + vbCrLf
     Next
     
