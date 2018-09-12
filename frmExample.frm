@@ -432,10 +432,10 @@ Private Sub btnJoinMember_Click()
     joinData.BizClass = "종목"
     
     '아이디, 6자이상 20자 미만
-    joinData.id = "userid"
+    joinData.ID = "userid"
     
     '비밀번호, 6자이상 20자 미만
-    joinData.pwd = "pwd_must_be_long_enough"
+    joinData.PWD = "pwd_must_be_long_enough"
     
     '담당자명, 최대 30자
     joinData.contactName = "담당자성명"
@@ -498,12 +498,12 @@ Private Sub btnListContact_Click()
     
     Dim tmp As String
     
-    tmp = "id | email | hp | personName | searchAllAllowYN | tel | fax | mgrYN | regDT " + vbCrLf
+    tmp = "id | email | hp | personName | searchAllAllowYN | tel | fax | mgrYN | regDT | state" + vbCrLf
     
     Dim info As PBContactInfo
     
     For Each info In resultList
-        tmp = tmp + info.id + " | " + info.email + " | " + info.hp + " | " + info.personName + " | " + CStr(info.searchAllAllowYN) _
+        tmp = tmp + info.ID + " | " + info.email + " | " + info.hp + " | " + info.personName + " | " + CStr(info.searchAllAllowYN) _
                 + info.tel + " | " + info.fax + " | " + CStr(info.mgrYN) + " | " + info.regDT + " | " + CStr(info.state) + vbCrLf
     Next
     
@@ -519,10 +519,10 @@ Private Sub btnRegistContact_Click()
     Dim Response As PBResponse
     
     '담당자 아이디, 6자 이상 20자 미만
-    joinData.id = "testkorea_20161011"
+    joinData.ID = "testkorea_20161011"
     
     '비밀번호, 6자 이상 20자 미만
-    joinData.pwd = "test@test.com"
+    joinData.PWD = "test@test.com"
     
     '담당자명, 최대 30자
     joinData.personName = "담당자명"
@@ -662,7 +662,7 @@ Private Sub btnUpdateContact_Click()
     Dim Response As PBResponse
     
     '담당자 아이디
-    joinData.id = txtUserID.Text
+    joinData.ID = txtUserID.Text
     
     '담당자명
     joinData.personName = "담당자명_수정"
