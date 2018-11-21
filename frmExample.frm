@@ -9,7 +9,7 @@ Begin VB.Form frmExample
    ScaleHeight     =   4830
    ScaleWidth      =   15180
    StartUpPosition =   2  '화면 가운데
-   Begin VB.CommandButton btnGetPopbillURL_LOGIN 
+   Begin VB.CommandButton btnGetAccessURL 
       Caption         =   "팝빌 로그인 URL"
       Height          =   375
       Left            =   9000
@@ -207,7 +207,7 @@ Begin VB.Form frmExample
          TabIndex        =   26
          Top             =   240
          Width           =   2055
-         Begin VB.CommandButton btnGetPopbillURL_CHRG 
+         Begin VB.CommandButton btnGetChargeURL 
             Caption         =   "포인트 충전 URL"
             Height          =   375
             Left            =   120
@@ -276,7 +276,7 @@ Attribute VB_Exposed = False
 ' 팝빌 휴폐업조회 API VB 6.0 SDK Example
 '
 ' - VB6 SDK 연동환경 설정방법 안내 : http://blog.linkhub.co.kr/569
-' - 업데이트 일자 : 2017-08-30
+' - 업데이트 일자 : 2018-11-21
 ' - 연동 기술지원 연락처 : 1600-9854 / 070-4504-2991
 ' - 연동 기술지원 이메일 : code@linkhub.co.kr
 '
@@ -338,6 +338,10 @@ Private Sub btnCheckIsMember_Click()
     MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
 End Sub
 
+
+
+
+
 '=========================================================================
 ' 연동회원의 휴폐업조회 API 서비스 과금정보를 확인합니다.
 '=========================================================================
@@ -360,6 +364,8 @@ Private Sub btnGetChargeInfo_Click()
     
     MsgBox tmp
 End Sub
+
+
 
 '=========================================================================
 ' 연동회원의 회사정보를 확인합니다.
@@ -576,11 +582,10 @@ End Sub
 ' 팝빌(www.popbill.com)에 로그인된 팝빌 URL을 반환합니다.
 ' - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
 '=========================================================================
-
-Private Sub btnGetPopbillURL_LOGIN_Click()
+Private Sub btnGetAccessURL_Click()
     Dim url As String
     
-    url = ClosedownService.GetPopbillURL(txtCorpNum.Text, txtUserID.Text, "LOGIN")
+    url = ClosedownService.GetAccessURL(txtCorpNum.Text, txtUserID.Text)
     
     If url = "" Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
@@ -593,11 +598,10 @@ End Sub
 ' 연동회원 포인트 충전 URL을 반환합니다.
 ' - URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
 '=========================================================================
-
-Private Sub btnGetPopbillURL_CHRG_Click()
+Private Sub btnGetChargeURL_Click()
     Dim url As String
     
-    url = ClosedownService.GetPopbillURL(txtCorpNum.Text, txtUserID.Text, "CHRG")
+    url = ClosedownService.GetChargeURL(txtCorpNum.Text, txtUserID.Text)
     
     If url = "" Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
