@@ -33,7 +33,7 @@ Begin VB.Form frmExample
       Top             =   360
       Width           =   1695
    End
-   Begin VB.TextBox txtCorpNum 
+   Begin VB.TextBox txtUserCorpNum 
       Height          =   270
       Left            =   2280
       TabIndex        =   1
@@ -276,7 +276,7 @@ Attribute VB_Exposed = False
 ' 팝빌 휴폐업조회 API VB 6.0 SDK Example
 '
 ' - VB6 SDK 연동환경 설정방법 안내 : http://blog.linkhub.co.kr/569
-' - 업데이트 일자 : 2018-11-21
+' - 업데이트 일자 : 2019-02-11
 ' - 연동 기술지원 연락처 : 1600-9854 / 070-4504-2991
 ' - 연동 기술지원 이메일 : code@linkhub.co.kr
 '
@@ -304,9 +304,26 @@ Private Const SecretKey = "SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I="
 Private ClosedownService As New PBCDService
 
 '=========================================================================
-' 팝빌 회원아이디 중복여부를 확인합니다.
+' 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.
+' - LinkID는 인증정보로 설정되어 있는 링크아이디 값입니다.
 '=========================================================================
 
+Private Sub btnCheckIsMember_Click()
+    Dim Response As PBResponse
+    
+    Set Response = ClosedownService.CheckIsMember(txtUserCorpNum.Text, linkID)
+    
+    If Response Is Nothing Then
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
+End Sub
+
+'=========================================================================
+' 팝빌 회원아이디 중복여부를 확인합니다.
+'=========================================================================
 Private Sub btnCheckID_Click()
     Dim Response As PBResponse
     
@@ -321,130 +338,44 @@ Private Sub btnCheckID_Click()
 End Sub
 
 '=========================================================================
-' 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.
-' - LinkID는 인증정보로 설정되어 있는 링크아이디 값입니다.
-'=========================================================================
-
-Private Sub btnCheckIsMember_Click()
-    Dim Response As PBResponse
-    
-    Set Response = ClosedownService.CheckIsMember(txtCorpNum.Text, linkID)
-    
-    If Response Is Nothing Then
-        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
-        Exit Sub
-    End If
-    
-    MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
-End Sub
-
-
-
-
-
-'=========================================================================
-' 연동회원의 휴폐업조회 API 서비스 과금정보를 확인합니다.
-'=========================================================================
-
-Private Sub btnGetChargeInfo_Click()
-    Dim ChargeInfo As PBChargeInfo
-    
-    Set ChargeInfo = ClosedownService.GetChargeInfo(txtCorpNum.Text)
-     
-    If ChargeInfo Is Nothing Then
-        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
-        Exit Sub
-    End If
-    
-    Dim tmp As String
-    
-    tmp = tmp + "unitCost (단가[정액제-월요금, 종량제-조회단가]) : " + ChargeInfo.unitCost + vbCrLf
-    tmp = tmp + "chargeMethod (과금유형) : " + ChargeInfo.chargeMethod + vbCrLf
-    tmp = tmp + "rateSystem (과금제도) : " + ChargeInfo.rateSystem + vbCrLf
-    
-    MsgBox tmp
-End Sub
-
-
-
-'=========================================================================
-' 연동회원의 회사정보를 확인합니다.
-'=========================================================================
-
-Private Sub btnGetCorpInfo_Click()
-    Dim CorpInfo As PBCorpInfo
-    Dim tmp As String
-    
-    Set CorpInfo = ClosedownService.GetCorpInfo(txtCorpNum.Text)
-     
-    If CorpInfo Is Nothing Then
-        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
-        Exit Sub
-    End If
-    
-    tmp = tmp + "ceoname(대표자성명) : " + CorpInfo.CEOName + vbCrLf
-    tmp = tmp + "corpName(상호명) : " + CorpInfo.CorpName + vbCrLf
-    tmp = tmp + "addr(주소) : " + CorpInfo.Addr + vbCrLf
-    tmp = tmp + "bizType(업태) : " + CorpInfo.BizType + vbCrLf
-    tmp = tmp + "bizClass(종목) : " + CorpInfo.BizClass + vbCrLf
-    
-    MsgBox tmp
-End Sub
-
-'=========================================================================
-' 파트너 포인트 충전 URL을 반환합니다.
-' - URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
-'=========================================================================
-
-Private Sub btnGetPartnerURL_CHRG_Click()
-    Dim url As String
-    
-    url = ClosedownService.GetPartnerURL(txtCorpNum.Text, "CHRG")
-    
-    If url = "" Then
-        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
-        Exit Sub
-    End If
-    MsgBox "URL : " + vbCrLf + url
-End Sub
-
-'=========================================================================
 ' 팝빌 연동회원 가입을 요청합니다.
 '=========================================================================
-
 Private Sub btnJoinMember_Click()
     Dim joinData As New PBJoinForm
     Dim Response As PBResponse
     
-    '링크 아이디
-    joinData.linkID = linkID
-    
-    '사업자번호, '-'제외, 10자리
-    joinData.CorpNum = "1231212312"
-    
-    '대표자성명, 최대 30자
-    joinData.CEOName = "대표자성명"
-    
-    '상호명, 최대 70자
-    joinData.CorpName = "회원상호"
-    
-    '주소, 최대 300자
-    joinData.Addr = "주소"
-    
-    '업태, 최대 40자
-    joinData.BizType = "업태"
-    
-    '종목, 최대 40자
-    joinData.BizClass = "종목"
-    
-    '아이디, 6자이상 20자 미만
+    '아이디, 6자이상 50자 미만
     joinData.ID = "userid"
     
     '비밀번호, 6자이상 20자 미만
     joinData.PWD = "pwd_must_be_long_enough"
     
-    '담당자명, 최대 30자
+    '파트너링크 아이디
+    joinData.linkID = linkID
+    
+    '사업자번호, '-'제외, 10자리
+    joinData.CorpNum = "1234567890"
+    
+    '대표자성명, 최대 100자
+    joinData.CEOName = "대표자성명"
+    
+    '상호명, 최대 200자
+    joinData.CorpName = "회원상호"
+    
+    '사업장 주소, 최대 300자
+    joinData.Addr = "주소"
+    
+    '업태, 최대 100자
+    joinData.BizType = "업태"
+    
+    '종목, 최대 100자
+    joinData.BizClass = "종목"
+
+    '담당자 성명, 최대 100자
     joinData.contactName = "담당자성명"
+    
+    '담당자 이메일, 최대 100자
+    joinData.ContactEmail = "test@test.com"
     
     '담당자 연락처, 최대 20자
     joinData.ContactTEL = "02-999-9999"
@@ -455,10 +386,227 @@ Private Sub btnJoinMember_Click()
     '담당자 팩스번호, 최대 20자
     joinData.ContactFAX = "02-999-9998"
     
-    '담당자 메일, 최대 70자
-    joinData.ContactEmail = "test@test.com"
-    
     Set Response = ClosedownService.JoinMember(joinData)
+    
+    If Response Is Nothing Then
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
+End Sub
+
+'=========================================================================
+' 휴폐업조회 단가를 확인합니다.
+'=========================================================================
+Private Sub btnUnitCost_Click()
+    Dim unitCost As Double
+    
+    unitCost = ClosedownService.GetUnitCost(txtUserCorpNum.Text)
+    
+    If unitCost < 0 Then
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    MsgBox "조회단가 : " + CStr(unitCost)
+End Sub
+
+'=========================================================================
+' 휴폐업조회 API 서비스 과금정보를 확인합니다.
+'=========================================================================
+Private Sub btnGetChargeInfo_Click()
+    Dim ChargeInfo As PBChargeInfo
+    Dim tmp As String
+    
+    Set ChargeInfo = ClosedownService.GetChargeInfo(txtUserCorpNum.Text)
+     
+    If ChargeInfo Is Nothing Then
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    tmp = tmp + "unitCost (조회단가) : " + ChargeInfo.unitCost + vbCrLf
+    tmp = tmp + "chargeMethod (과금유형) : " + ChargeInfo.chargeMethod + vbCrLf
+    tmp = tmp + "rateSystem (과금제도) : " + ChargeInfo.rateSystem + vbCrLf
+    
+    MsgBox tmp
+End Sub
+
+'=========================================================================
+' 팝빌에 로그인된 팝빌 URL을 반환합니다.
+' - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+'=========================================================================
+Private Sub btnGetAccessURL_Click()
+    Dim url As String
+    
+    url = ClosedownService.GetAccessURL(txtUserCorpNum.Text, txtUserID.Text)
+    
+    If url = "" Then
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    MsgBox "URL : " + vbCrLf + url
+End Sub
+
+'=========================================================================
+' 연동회원의 담당자를 신규로 등록합니다.
+'=========================================================================
+Private Sub btnRegistContact_Click()
+    Dim joinData As New PBContactInfo
+    Dim Response As PBResponse
+    
+    '담당자 아이디, 6자 이상 50자 미만
+    joinData.ID = "testkorea"
+    
+    '비밀번호, 6자 이상 20자 미만
+    joinData.PWD = "test@test.com"
+    
+    '담당자명, 최대 100자
+    joinData.personName = "담당자명"
+    
+    '담당자 연락처, 최대 20자
+    joinData.tel = "070-1234-1234"
+    
+    '담당자 휴대폰번호, 최대 20자
+    joinData.hp = "010-1234-1234"
+    
+    '담당자 팩스번,최대 20자
+    joinData.fax = "070-1234-1234"
+    
+    '담당자 메일주소, 최대 100자
+    joinData.email = "test@test.com"
+    
+    '회사조회 권한여부, True-회사조회 / False-개인조회
+    joinData.searchAllAllowYN = True
+    
+    '관리자 여부, True-관리자 / False-사용자
+    joinData.mgrYN = False
+    
+    Set Response = ClosedownService.RegistContact(txtUserCorpNum.Text, joinData)
+    
+    If Response Is Nothing Then
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
+End Sub
+
+'=========================================================================
+' 연동회원의 담당자 목록을 확인합니다.
+'=========================================================================
+Private Sub btnListContact_Click()
+    Dim resultList As Collection
+    Dim tmp As String
+    Dim info As PBContactInfo
+    
+    Set resultList = ClosedownService.ListContact(txtUserCorpNum.Text)
+     
+    If resultList Is Nothing Then
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    tmp = "id(아이디) | personName(성명) | email(이메일) | hp(휴대폰번호) |  fax(팩스번호) | tel(연락처) | " _
+         + "regDT(등록일시) | searchAllAllowYN(회사조회 권한여부) | mgrYN(관리자 여부) | state(상태) " + vbCrLf
+    
+    For Each info In resultList
+        tmp = tmp + info.ID + " | " + info.personName + " | " + info.email + " | " + info.hp + " | " + info.fax _
+        + info.tel + " | " + info.regDT + " | " + CStr(info.searchAllAllowYN) + " | " + CStr(info.mgrYN) + " | " + CStr(info.state) + vbCrLf
+    Next
+    
+    MsgBox tmp
+End Sub
+
+'=========================================================================
+' 연동회원의 담당자 정보를 수정합니다.
+'=========================================================================
+Private Sub btnUpdateContact_Click()
+    Dim joinData As New PBContactInfo
+    Dim Response As PBResponse
+    
+    '담당자 아이디
+    joinData.ID = txtUserID.Text
+    
+    '담당자 성명, 최대 100자
+    joinData.personName = "담당자명_수정"
+    
+    '담당자 연락처, 최대 20자
+    joinData.tel = "070-1234-1234"
+    
+    '담당자 휴대폰번호, 최대 20자
+    joinData.hp = "010-1234-1234"
+        
+    '담당자 팩스번호, 최대 20자
+    joinData.fax = "070-1234-1234"
+    
+    '담당자 이메일, 최대 100자
+    joinData.email = "test@test.com"
+
+    '회사조회 권한여부, True-회사조회 / False-개인조회
+    joinData.searchAllAllowYN = True
+    
+    '관리자 여부, True-관리자 / False-사용자
+    joinData.mgrYN = False
+                
+    Set Response = ClosedownService.UpdateContact(txtUserCorpNum.Text, joinData, txtUserID.Text)
+    
+    If Response Is Nothing Then
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
+End Sub
+
+'=========================================================================
+' 연동회원의 회사정보를 확인합니다.
+'=========================================================================
+Private Sub btnGetCorpInfo_Click()
+    Dim CorpInfo As PBCorpInfo
+    Dim tmp As String
+    
+    Set CorpInfo = ClosedownService.GetCorpInfo(txtUserCorpNum.Text)
+     
+    If CorpInfo Is Nothing Then
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    tmp = tmp + "ceoname (대표자성명) : " + CorpInfo.CEOName + vbCrLf
+    tmp = tmp + "corpName (상호명) : " + CorpInfo.CorpName + vbCrLf
+    tmp = tmp + "addr (주소) : " + CorpInfo.Addr + vbCrLf
+    tmp = tmp + "bizType (업태) : " + CorpInfo.BizType + vbCrLf
+    tmp = tmp + "bizClass (종목) : " + CorpInfo.BizClass + vbCrLf
+    
+    MsgBox tmp
+End Sub
+
+'=========================================================================
+' 연동회원의 회사 정보를 수정합니다.
+'=========================================================================
+Private Sub btnUpdateCorpInfo_Click()
+    Dim CorpInfo As New PBCorpInfo
+    Dim Response As PBResponse
+    
+    '대표자명, 최대 100자
+    CorpInfo.CEOName = "대표자"
+    
+    '상호, 최대 200자
+    CorpInfo.CorpName = "상호"
+    
+    '주소, 최대 300자
+    CorpInfo.Addr = "서울특별시"
+    
+    '업태, 최대 100자
+    CorpInfo.BizType = "업태"
+    
+    '종목, 최대 100자
+    CorpInfo.BizClass = "종목"
+    
+    Set Response = ClosedownService.UpdateCorpInfo(txtUserCorpNum.Text, CorpInfo)
     
     If Response Is Nothing Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
@@ -477,149 +625,42 @@ End Sub
 Private Sub btnGetBalance_Click()
     Dim balance As Double
     
-    balance = ClosedownService.GetBalance(txtCorpNum.Text)
+    balance = ClosedownService.GetBalance(txtUserCorpNum.Text)
     
     If balance < 0 Then
-        
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
-    MsgBox "잔여포인트 : " + CStr(balance)
-End Sub
-
-'=========================================================================
-' 연동회원의 담당자 목록을 확인합니다.
-'=========================================================================
-
-Private Sub btnListContact_Click()
-    Dim resultList As Collection
-        
-    Set resultList = ClosedownService.ListContact(txtCorpNum.Text)
-     
-    If resultList Is Nothing Then
-        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
-        Exit Sub
-    End If
-    
-    Dim tmp As String
-    
-    tmp = "id | email | hp | personName | searchAllAllowYN | tel | fax | mgrYN | regDT | state" + vbCrLf
-    
-    Dim info As PBContactInfo
-    
-    For Each info In resultList
-        tmp = tmp + info.ID + " | " + info.email + " | " + info.hp + " | " + info.personName + " | " + CStr(info.searchAllAllowYN) _
-                + info.tel + " | " + info.fax + " | " + CStr(info.mgrYN) + " | " + info.regDT + " | " + CStr(info.state) + vbCrLf
-    Next
-    
-    MsgBox tmp
-End Sub
-
-'=========================================================================
-' 연동회원의 담당자를 신규로 등록합니다.
-'=========================================================================
-
-Private Sub btnRegistContact_Click()
-    Dim joinData As New PBContactInfo
-    Dim Response As PBResponse
-    
-    '담당자 아이디, 6자 이상 20자 미만
-    joinData.ID = "testkorea_20161011"
-    
-    '비밀번호, 6자 이상 20자 미만
-    joinData.PWD = "test@test.com"
-    
-    '담당자명, 최대 30자
-    joinData.personName = "담당자명"
-    
-    '담당자 연락처
-    joinData.tel = "070-1234-1234"
-    
-    '담당자 휴대폰번호
-    joinData.hp = "010-1234-1234"
-    
-    '담당자 메일주소
-    joinData.email = "test@test.com"
-    
-    '담당자 팩스번호
-    joinData.fax = "070-1234-1234"
-    
-    '회사조회 권한여부, true-회사조회 / false-개인조회
-    joinData.searchAllAllowYN = True
-    
-    '관리자 권한여부
-    joinData.mgrYN = False
-        
-    Set Response = ClosedownService.RegistContact(txtCorpNum.Text, joinData)
-    
-    If Response Is Nothing Then
-        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
-        Exit Sub
-    End If
-    
-    MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
-End Sub
-
-'=========================================================================
-' 휴폐업조회 단가를 확인합니다.
-'=========================================================================
-
-Private Sub btnUnitCost_Click()
-    Dim unitCost As Double
-    
-    unitCost = ClosedownService.GetUnitCost(txtCorpNum.Text)
-    
-    If unitCost < 0 Then
-        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
-        Exit Sub
-    End If
-    
-    MsgBox "조회단가 : " + CStr(unitCost)
-End Sub
-
-'=========================================================================
-' 팝빌(www.popbill.com)에 로그인된 팝빌 URL을 반환합니다.
-' - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
-'=========================================================================
-Private Sub btnGetAccessURL_Click()
-    Dim url As String
-    
-    url = ClosedownService.GetAccessURL(txtCorpNum.Text, txtUserID.Text)
-    
-    If url = "" Then
-        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
-        Exit Sub
-    End If
-    MsgBox "URL : " + vbCrLf + url
+    MsgBox "연동회원 잔여포인트 : " + CStr(balance)
 End Sub
 
 '=========================================================================
 ' 연동회원 포인트 충전 URL을 반환합니다.
-' - URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+' - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
 '=========================================================================
 Private Sub btnGetChargeURL_Click()
     Dim url As String
     
-    url = ClosedownService.GetChargeURL(txtCorpNum.Text, txtUserID.Text)
+    url = ClosedownService.GetChargeURL(txtUserCorpNum.Text, txtUserID.Text)
     
     If url = "" Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
+    
     MsgBox "URL : " + vbCrLf + url
 End Sub
 
 '=========================================================================
-' 파트너의 잔여포인트를 확인합니다.
-' - 과금방식이 연동과금인 경우 연동회원 잔여포인트(GetBalance API)를
-'   이용하시기 바랍니다.
+' 파트너 잔여포인트를 확인합니다.
+' - 과금방식이 연동과금인 경우 연동회원 잔여포인트(GetBalance API)
+'   를 통해 확인하시기 바랍니다.
 '=========================================================================
-
 Private Sub btnGetPartnerBalance_Click()
     Dim balance As Double
     
-    balance = ClosedownService.GetPartnerBalance(txtCorpNum.Text)
+    balance = ClosedownService.GetPartnerBalance(txtUserCorpNum.Text)
     
     If balance < 0 Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
@@ -630,14 +671,31 @@ Private Sub btnGetPartnerBalance_Click()
 End Sub
 
 '=========================================================================
-' 1건의 사업자에 대한 휴폐업여부를 조회합니다.
+' 파트너 포인트 충전 URL을 반환합니다.
+' - URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
 '=========================================================================
+Private Sub btnGetPartnerURL_CHRG_Click()
+    Dim url As String
+    
+    url = ClosedownService.GetPartnerURL(txtUserCorpNum.Text, "CHRG")
+       
+    If url = "" Then
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    MsgBox "URL : " + vbCrLf + url
+    
+End Sub
 
+'=========================================================================
+' 1건의 사업자에 대한 휴폐업 여부를 조회합니다.
+'=========================================================================
 Private Sub btnCheckCorpNum_Click()
     Dim CorpState As PBCorpState
     Dim tmp As String
     
-    Set CorpState = ClosedownService.CheckCorpNum(txtCorpNum.Text, txtCheckCorpNum.Text)
+    Set CorpState = ClosedownService.CheckCorpNum(txtUserCorpNum.Text, txtCheckCorpNum.Text)
     
     If CorpState Is Nothing Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
@@ -645,115 +703,33 @@ Private Sub btnCheckCorpNum_Click()
     End If
     
     tmp = tmp + "* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업" + vbCrLf
-    tmp = tmp + "* type (사업 유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관" + vbCrLf + vbCrLf
+    tmp = tmp + "* type (사업자 과세유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관" + vbCrLf + vbCrLf
     
     tmp = tmp + "corpNum (사업자번호) : " + CorpState.CorpNum + vbCrLf
     tmp = tmp + "state (휴폐업상태) : " + CorpState.state + vbCrLf
-    tmp = tmp + "type (사업유형) : " + CorpState.ctype + vbCrLf
-    tmp = tmp + "stateDate(휴폐업일자) : " + CorpState.stateDate + vbCrLf
-    tmp = tmp + "typeDate(과세유형전환일자) : " + CorpState.typeDate + vbCrLf
-    tmp = tmp + "checkDate(국세청 확인일자) : " + CorpState.checkDate
+    tmp = tmp + "type (사업자 과세유형) : " + CorpState.ctype + vbCrLf
+    tmp = tmp + "typeDate (과세유형 전환일자) : " + CorpState.typeDate + vbCrLf
+    tmp = tmp + "stateDate (휴폐업일자) : " + CorpState.stateDate + vbCrLf
+    tmp = tmp + "checkDate (국세청 확인일자) : " + CorpState.checkDate
     
     MsgBox tmp, , "휴폐업조회 - 단건"
 End Sub
 
 '=========================================================================
-' 연동회원의 담당자 정보를 수정합니다.
+' 사업자에 대한 휴폐업 여부를 조회합니다. (최대 1000건)
 '=========================================================================
-
-Private Sub btnUpdateContact_Click()
-    Dim joinData As New PBContactInfo
-    Dim Response As PBResponse
-    
-    '담당자 아이디
-    joinData.ID = txtUserID.Text
-    
-    '담당자명
-    joinData.personName = "담당자명_수정"
-    
-    '연락처
-    joinData.tel = "070-1234-1234"
-    
-    '휴대폰번호
-    joinData.hp = "010-1234-1234"
-    
-    '이메일 주소
-    joinData.email = "test@test.com"
-    
-    '팩스번호
-    joinData.fax = "070-1234-1234"
-    
-    '전체조회여부, True-회사조회, False-개인조회
-    joinData.searchAllAllowYN = True
-    
-    '관리자 권한여부
-    joinData.mgrYN = False
-                
-    Set Response = ClosedownService.UpdateContact(txtCorpNum.Text, joinData, txtUserID.Text)
-    
-    If Response Is Nothing Then
-        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
-        Exit Sub
-    End If
-    
-    MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
-End Sub
-
-'=========================================================================
-' 연동회원의 회사정보를 수정합니다
-'=========================================================================
-
-Private Sub btnUpdateCorpInfo_Click()
-    Dim CorpInfo As New PBCorpInfo
-    Dim Response As PBResponse
-    
-    '대표자명
-    CorpInfo.CEOName = "대표자"
-    
-    '상호
-    CorpInfo.CorpName = "상호"
-    
-    '주소
-    CorpInfo.Addr = "서울특별시"
-    
-    '업태
-    CorpInfo.BizType = "업태"
-    
-    '종목
-    CorpInfo.BizClass = "종목"
-    
-    Set Response = ClosedownService.UpdateCorpInfo(txtCorpNum.Text, CorpInfo)
-    
-    If Response Is Nothing Then
-        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
-        Exit Sub
-    End If
-    
-    MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
-End Sub
-
-Private Sub txtCheckCorpNum_KeyPress(KeyAscii As Integer)
-    If KeyAscii = 13 Then
-        Call btnCheckCorpNum_Click
-    End If
-End Sub
-
-'=========================================================================
-' 다수의 사업자에 대한 휴폐업여부를 조회합니다.
-'=========================================================================
-
 Private Sub btnCheckCorpNums_Click()
     Dim resultList As Collection
     Dim CorpNumList As New Collection
     Dim tmp As String
     Dim state As PBCorpState
     
-    '조회할 사업자번호 배열, 최대 1000건
+    '조회할 사업자번호 배열 (최대 1000건)
     CorpNumList.Add "1234567890"
-    CorpNumList.Add "6798700433"
-    CorpNumList.Add "1231212312"
+    CorpNumList.Add "401-03-94930"
+    CorpNumList.Add "120-86-75212"
         
-    Set resultList = ClosedownService.CheckCorpNums(txtCorpNum.Text, CorpNumList)
+    Set resultList = ClosedownService.CheckCorpNums(txtUserCorpNum.Text, CorpNumList)
      
     If resultList Is Nothing Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
@@ -761,20 +737,19 @@ Private Sub btnCheckCorpNums_Click()
     End If
     
     tmp = tmp + "* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업" + vbCrLf
-    tmp = tmp + "* type (사업 유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관" + vbCrLf + vbCrLf
+    tmp = tmp + "* type (과세유형 전환일자) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관" + vbCrLf + vbCrLf
     
     For Each state In resultList
         tmp = tmp + "corpNum (사업자번호) : " + state.CorpNum + vbCrLf
         tmp = tmp + "state (휴폐업상태) : " + state.state + vbCrLf
-        tmp = tmp + "type (사업유형) : " + state.ctype + vbCrLf
-        tmp = tmp + "stateDate(휴폐업일자) : " + state.stateDate + vbCrLf
-        tmp = tmp + "typeDate(과세유형전환일자) : " + state.typeDate + vbCrLf
-        tmp = tmp + "checkDate(국세청 확인일자) : " + state.checkDate + vbCrLf + vbCrLf
+        tmp = tmp + "type (사업자 과세유형) : " + state.ctype + vbCrLf
+        tmp = tmp + "typeDate (과세유형 전환일자) : " + state.typeDate + vbCrLf
+        tmp = tmp + "stateDate (휴폐업일자) : " + state.stateDate + vbCrLf
+        tmp = tmp + "checkDate (국세청 확인일자) : " + state.checkDate + vbCrLf + vbCrLf
     Next
     
     MsgBox tmp, , "휴폐업조회 - 대량"
 End Sub
-
 Private Sub Form_Load()
     '모듈 초기화
     ClosedownService.Initialize linkID, SecretKey
