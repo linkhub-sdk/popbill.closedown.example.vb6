@@ -276,7 +276,7 @@ Attribute VB_Exposed = False
 ' 팝빌 휴폐업조회 API VB 6.0 SDK Example
 '
 ' - VB6 SDK 연동환경 설정방법 안내 : http://blog.linkhub.co.kr/569
-' - 업데이트 일자 : 2019-02-11
+' - 업데이트 일자 : 2019-09-26
 ' - 연동 기술지원 연락처 : 1600-9854 / 070-4504-2991
 ' - 연동 기술지원 이메일 : code@linkhub.co.kr
 '
@@ -725,8 +725,8 @@ Private Sub btnCheckCorpNums_Click()
     
     '조회할 사업자번호 배열 (최대 1000건)
     CorpNumList.Add "1234567890"
-    CorpNumList.Add "401-03-94930"
-    CorpNumList.Add "120-86-75212"
+    CorpNumList.Add "1231212312"
+    CorpNumList.Add "679-87-00433"
         
     Set resultList = ClosedownService.CheckCorpNums(txtUserCorpNum.Text, CorpNumList)
      
@@ -750,10 +750,15 @@ Private Sub btnCheckCorpNums_Click()
     MsgBox tmp, , "휴폐업조회 - 대량"
 End Sub
 Private Sub Form_Load()
+
     '모듈 초기화
     ClosedownService.Initialize linkID, SecretKey
     
     '연동환경 설정값 True(개발용), False(상업용)
     ClosedownService.IsTest = True
+    
+    '인증토큰 IP제한기능 사용여부, True(권장)
+    ClosedownService.IPRestrictOnOff = True
+    
 End Sub
 
