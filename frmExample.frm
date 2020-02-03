@@ -275,8 +275,8 @@ Attribute VB_Exposed = False
 '
 ' 팝빌 휴폐업조회 API VB 6.0 SDK Example
 '
-' - VB6 SDK 연동환경 설정방법 안내 : http://blog.linkhub.co.kr/569
-' - 업데이트 일자 : 2019-09-26
+' - VB6 SDK 연동환경 설정방법 안내 : https://docs.popbill.com/closedown/tutorial/vb
+' - 업데이트 일자 : 2020-02-03
 ' - 연동 기술지원 연락처 : 1600-9854 / 070-4504-2991
 ' - 연동 기술지원 이메일 : code@linkhub.co.kr
 '
@@ -306,6 +306,7 @@ Private ClosedownService As New PBCDService
 '=========================================================================
 ' 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.
 ' - LinkID는 인증정보로 설정되어 있는 링크아이디 값입니다.
+' - https://docs.popbill.com/closedown/vb/api#CheckIsMember
 '=========================================================================
 Private Sub btnCheckIsMember_Click()
     Dim Response As PBResponse
@@ -322,6 +323,7 @@ End Sub
 
 '=========================================================================
 ' 팝빌 회원아이디 중복여부를 확인합니다.
+' - https://docs.popbill.com/closedown/vb/api#CheckID
 '=========================================================================
 Private Sub btnCheckID_Click()
     Dim Response As PBResponse
@@ -338,6 +340,7 @@ End Sub
 
 '=========================================================================
 ' 팝빌 연동회원 가입을 요청합니다.
+' - https://docs.popbill.com/closedown/vb/api#JoinMember
 '=========================================================================
 Private Sub btnJoinMember_Click()
     Dim joinData As New PBJoinForm
@@ -397,6 +400,7 @@ End Sub
 
 '=========================================================================
 ' 휴폐업조회 단가를 확인합니다.
+' - https://docs.popbill.com/closedown/vb/api#GetUnitCost
 '=========================================================================
 Private Sub btnUnitCost_Click()
     Dim unitCost As Double
@@ -413,6 +417,7 @@ End Sub
 
 '=========================================================================
 ' 휴폐업조회 API 서비스 과금정보를 확인합니다.
+' - https://docs.popbill.com/closedown/vb/api#GetChargeInfo
 '=========================================================================
 Private Sub btnGetChargeInfo_Click()
     Dim ChargeInfo As PBChargeInfo
@@ -433,8 +438,9 @@ Private Sub btnGetChargeInfo_Click()
 End Sub
 
 '=========================================================================
-' 팝빌에 로그인된 팝빌 URL을 반환합니다.
+' 팝빌에 로그인된 팝업 URL을 반환합니다.
 ' - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+' - https://docs.popbill.com/closedown/vb/api#GetAccessURL
 '=========================================================================
 Private Sub btnGetAccessURL_Click()
     Dim url As String
@@ -451,6 +457,7 @@ End Sub
 
 '=========================================================================
 ' 연동회원의 담당자를 신규로 등록합니다.
+' - https://docs.popbill.com/closedown/vb/api#RegistContact
 '=========================================================================
 Private Sub btnRegistContact_Click()
     Dim joinData As New PBContactInfo
@@ -495,6 +502,7 @@ End Sub
 
 '=========================================================================
 ' 연동회원의 담당자 목록을 확인합니다.
+' - https://docs.popbill.com/closedown/vb/api#ListContact
 '=========================================================================
 Private Sub btnListContact_Click()
     Dim resultList As Collection
@@ -521,6 +529,7 @@ End Sub
 
 '=========================================================================
 ' 연동회원의 담당자 정보를 수정합니다.
+' - https://docs.popbill.com/closedown/vb/api#UpdateContact
 '=========================================================================
 Private Sub btnUpdateContact_Click()
     Dim joinData As New PBContactInfo
@@ -562,6 +571,7 @@ End Sub
 
 '=========================================================================
 ' 연동회원의 회사정보를 확인합니다.
+' - https://docs.popbill.com/closedown/vb/api#GetCorpInfo
 '=========================================================================
 Private Sub btnGetCorpInfo_Click()
     Dim CorpInfo As PBCorpInfo
@@ -585,6 +595,7 @@ End Sub
 
 '=========================================================================
 ' 연동회원의 회사 정보를 수정합니다.
+' - https://docs.popbill.com/closedown/vb/api#UpdateCorpInfo
 '=========================================================================
 Private Sub btnUpdateCorpInfo_Click()
     Dim CorpInfo As New PBCorpInfo
@@ -619,6 +630,7 @@ End Sub
 ' 연동회원의 잔여포인트를 확인합니다.
 ' - 과금방식이 파트너과금인 경우 파트너 잔여포인트(GetPartnerBalance API)
 '   를 통해 확인하시기 바랍니다.
+' - https://docs.popbill.com/closedown/vb/api#GetBalance
 '=========================================================================
 
 Private Sub btnGetBalance_Click()
@@ -637,6 +649,7 @@ End Sub
 '=========================================================================
 ' 연동회원 포인트 충전 URL을 반환합니다.
 ' - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+' - https://docs.popbill.com/closedown/vb/api#GetChargeURL
 '=========================================================================
 Private Sub btnGetChargeURL_Click()
     Dim url As String
@@ -655,6 +668,7 @@ End Sub
 ' 파트너 잔여포인트를 확인합니다.
 ' - 과금방식이 연동과금인 경우 연동회원 잔여포인트(GetBalance API)
 '   를 통해 확인하시기 바랍니다.
+' - https://docs.popbill.com/closedown/vb/api#GetPartnerBalance
 '=========================================================================
 Private Sub btnGetPartnerBalance_Click()
     Dim balance As Double
@@ -672,6 +686,7 @@ End Sub
 '=========================================================================
 ' 파트너 포인트 충전 URL을 반환합니다.
 ' - URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+' - https://docs.popbill.com/closedown/vb/api#GetPartnerURL
 '=========================================================================
 Private Sub btnGetPartnerURL_CHRG_Click()
     Dim url As String
@@ -689,6 +704,7 @@ End Sub
 
 '=========================================================================
 ' 1건의 사업자에 대한 휴폐업 여부를 조회합니다.
+' - https://docs.popbill.com/closedown/vb/api#CheckCorpNum
 '=========================================================================
 Private Sub btnCheckCorpNum_Click()
     Dim CorpState As PBCorpState
@@ -716,6 +732,7 @@ End Sub
 
 '=========================================================================
 ' 사업자에 대한 휴폐업 여부를 조회합니다. (최대 1000건)
+' - https://docs.popbill.com/closedown/vb/api#CheckCorpNums
 '=========================================================================
 Private Sub btnCheckCorpNums_Click()
     Dim resultList As Collection
