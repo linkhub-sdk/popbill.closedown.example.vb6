@@ -276,7 +276,7 @@ Attribute VB_Exposed = False
 ' 팝빌 휴폐업조회 API VB 6.0 SDK Example
 '
 ' - VB6 SDK 연동환경 설정방법 안내 : https://docs.popbill.com/closedown/tutorial/vb
-' - 업데이트 일자 : 2020-02-03
+' - 업데이트 일자 : 2021-07-23
 ' - 연동 기술지원 연락처 : 1600-9854 / 070-4504-2991
 ' - 연동 기술지원 이메일 : code@linkhub.co.kr
 '
@@ -718,11 +718,11 @@ Private Sub btnCheckCorpNum_Click()
     End If
     
     tmp = tmp + "* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업" + vbCrLf
-    tmp = tmp + "* type (사업자 과세유형) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관" + vbCrLf + vbCrLf
+    tmp = tmp + "* type (사업자 과세유형) : null-알수없음, 10-일반과세자, 20-면세과세자, 30-간이과세자, 31-간이과세자(세금계산서 발급사업자), 40-비영리법인, 국가기관" + vbCrLf + vbCrLf
     
     tmp = tmp + "corpNum (사업자번호) : " + CorpState.CorpNum + vbCrLf
     tmp = tmp + "state (휴폐업상태) : " + CorpState.state + vbCrLf
-    tmp = tmp + "type (사업자 과세유형) : " + CorpState.ctype + vbCrLf
+    tmp = tmp + "taxType (사업자 과세유형) : " + CorpState.taxType + vbCrLf
     tmp = tmp + "typeDate (과세유형 전환일자) : " + CorpState.typeDate + vbCrLf
     tmp = tmp + "stateDate (휴폐업일자) : " + CorpState.stateDate + vbCrLf
     tmp = tmp + "checkDate (국세청 확인일자) : " + CorpState.checkDate
@@ -753,12 +753,12 @@ Private Sub btnCheckCorpNums_Click()
     End If
     
     tmp = tmp + "* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업" + vbCrLf
-    tmp = tmp + "* type (과세유형 전환일자) : null-알수없음, 1-일반과세자, 2-면세과세자, 3-간이과세자, 4-비영리법인, 국가기관" + vbCrLf + vbCrLf
+    tmp = tmp + "* type (과세유형 전환일자) : null-알수없음, 10-일반과세자, 20-면세과세자, 30-간이과세자, 31-간이과세자(세금계산서 발급사업자), 40-비영리법인, 국가기관" + vbCrLf + vbCrLf
     
     For Each state In resultList
         tmp = tmp + "corpNum (사업자번호) : " + state.CorpNum + vbCrLf
         tmp = tmp + "state (휴폐업상태) : " + state.state + vbCrLf
-        tmp = tmp + "type (사업자 과세유형) : " + state.ctype + vbCrLf
+        tmp = tmp + "taxType (사업자 과세유형) : " + state.taxType + vbCrLf
         tmp = tmp + "typeDate (과세유형 전환일자) : " + state.typeDate + vbCrLf
         tmp = tmp + "stateDate (휴폐업일자) : " + state.stateDate + vbCrLf
         tmp = tmp + "checkDate (국세청 확인일자) : " + state.checkDate + vbCrLf + vbCrLf
