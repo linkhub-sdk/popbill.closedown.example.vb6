@@ -304,7 +304,7 @@ Private Const SecretKey = "SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I="
 Private ClosedownService As New PBCDService
 
 '=========================================================================
-' 해당 사업자의 파트너 연동회원 가입여부를 확인합니다.
+' 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
 ' - LinkID는 인증정보로 설정되어 있는 링크아이디 값입니다.
 ' - https://docs.popbill.com/closedown/vb/api#CheckIsMember
 '=========================================================================
@@ -322,7 +322,7 @@ Private Sub btnCheckIsMember_Click()
 End Sub
 
 '=========================================================================
-' 팝빌 회원아이디 중복여부를 확인합니다.
+' 사용하고자 하는 아이디의 중복여부를 확인합니다.
 ' - https://docs.popbill.com/closedown/vb/api#CheckID
 '=========================================================================
 Private Sub btnCheckID_Click()
@@ -339,7 +339,7 @@ Private Sub btnCheckID_Click()
 End Sub
 
 '=========================================================================
-' 팝빌 연동회원 가입을 요청합니다.
+' 사용자를 연동회원으로 가입처리합니다.
 ' - https://docs.popbill.com/closedown/vb/api#JoinMember
 '=========================================================================
 Private Sub btnJoinMember_Click()
@@ -399,7 +399,7 @@ Private Sub btnJoinMember_Click()
 End Sub
 
 '=========================================================================
-' 휴폐업조회 단가를 확인합니다.
+' 휴폐업 조회시 과금되는 포인트 단가를 확인합니다.
 ' - https://docs.popbill.com/closedown/vb/api#GetUnitCost
 '=========================================================================
 Private Sub btnUnitCost_Click()
@@ -438,8 +438,8 @@ Private Sub btnGetChargeInfo_Click()
 End Sub
 
 '=========================================================================
-' 팝빌에 로그인된 팝업 URL을 반환합니다.
-' - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+' 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
+' - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
 ' - https://docs.popbill.com/closedown/vb/api#GetAccessURL
 '=========================================================================
 Private Sub btnGetAccessURL_Click()
@@ -456,7 +456,7 @@ Private Sub btnGetAccessURL_Click()
 End Sub
 
 '=========================================================================
-' 연동회원의 담당자를 신규로 등록합니다.
+' 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
 ' - https://docs.popbill.com/closedown/vb/api#RegistContact
 '=========================================================================
 Private Sub btnRegistContact_Click()
@@ -501,7 +501,7 @@ Private Sub btnRegistContact_Click()
 End Sub
 
 '=========================================================================
-' 연동회원의 담당자 목록을 확인합니다.
+' 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
 ' - https://docs.popbill.com/closedown/vb/api#ListContact
 '=========================================================================
 Private Sub btnListContact_Click()
@@ -528,7 +528,7 @@ Private Sub btnListContact_Click()
 End Sub
 
 '=========================================================================
-' 연동회원의 담당자 정보를 수정합니다.
+' 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
 ' - https://docs.popbill.com/closedown/vb/api#UpdateContact
 '=========================================================================
 Private Sub btnUpdateContact_Click()
@@ -594,7 +594,7 @@ Private Sub btnGetCorpInfo_Click()
 End Sub
 
 '=========================================================================
-' 연동회원의 회사 정보를 수정합니다.
+' 연동회원의 회사정보를 수정합니다.
 ' - https://docs.popbill.com/closedown/vb/api#UpdateCorpInfo
 '=========================================================================
 Private Sub btnUpdateCorpInfo_Click()
@@ -628,8 +628,7 @@ End Sub
 
 '=========================================================================
 ' 연동회원의 잔여포인트를 확인합니다.
-' - 과금방식이 파트너과금인 경우 파트너 잔여포인트(GetPartnerBalance API)
-'   를 통해 확인하시기 바랍니다.
+' - 과금방식이 파트너과금인 경우 파트너 잔여포인트(GetPartnerBalance API)를 통해 확인하시기 바랍니다.
 ' - https://docs.popbill.com/closedown/vb/api#GetBalance
 '=========================================================================
 
@@ -647,8 +646,8 @@ Private Sub btnGetBalance_Click()
 End Sub
 
 '=========================================================================
-' 연동회원 포인트 충전 URL을 반환합니다.
-' - 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+' 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
+' - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
 ' - https://docs.popbill.com/closedown/vb/api#GetChargeURL
 '=========================================================================
 Private Sub btnGetChargeURL_Click()
@@ -665,9 +664,8 @@ Private Sub btnGetChargeURL_Click()
 End Sub
 
 '=========================================================================
-' 파트너 잔여포인트를 확인합니다.
-' - 과금방식이 연동과금인 경우 연동회원 잔여포인트(GetBalance API)
-'   를 통해 확인하시기 바랍니다.
+' 파트너의 잔여포인트를 확인합니다.
+' - 과금방식이 연동과금인 경우 연동회원 잔여포인트(GetBalance API)를 통해 확인하시기 바랍니다.
 ' - https://docs.popbill.com/closedown/vb/api#GetPartnerBalance
 '=========================================================================
 Private Sub btnGetPartnerBalance_Click()
@@ -684,8 +682,8 @@ Private Sub btnGetPartnerBalance_Click()
 End Sub
 
 '=========================================================================
-' 파트너 포인트 충전 URL을 반환합니다.
-' - URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.
+' 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
+' - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
 ' - https://docs.popbill.com/closedown/vb/api#GetPartnerURL
 '=========================================================================
 Private Sub btnGetPartnerURL_CHRG_Click()
@@ -703,7 +701,7 @@ Private Sub btnGetPartnerURL_CHRG_Click()
 End Sub
 
 '=========================================================================
-' 1건의 사업자에 대한 휴폐업 여부를 조회합니다.
+' 사업자번호 1건에 대한 휴폐업정보를 확인합니다.
 ' - https://docs.popbill.com/closedown/vb/api#CheckCorpNum
 '=========================================================================
 Private Sub btnCheckCorpNum_Click()
@@ -731,7 +729,7 @@ Private Sub btnCheckCorpNum_Click()
 End Sub
 
 '=========================================================================
-' 사업자에 대한 휴폐업 여부를 조회합니다. (최대 1000건)
+' 다수건의 사업자번호에 대한 휴폐업정보를 확인합니다. (최대 1,000건)
 ' - https://docs.popbill.com/closedown/vb/api#CheckCorpNums
 '=========================================================================
 Private Sub btnCheckCorpNums_Click()
