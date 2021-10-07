@@ -1,7 +1,7 @@
 frmExample = 20, 158, 1285, 776, , 295, 48, 1560, 666, C
 cStringBuilder = 0, 0, 0, 0, C
-Linkhub = 154, 203, 1396, 912, 
-LinkhubToken = 0, 0, 0, 0, C
+Linkhub = 154, 203, 1396, 912, Z
+LinkhubToken = 242, 319, 1396, 968, 
 PBResponse = 66, 87, 1331, 705, 
 PBCorpState = 110, 145, 1375, 763, 
 PBCDService = 75, 115, 1340, 930, 
