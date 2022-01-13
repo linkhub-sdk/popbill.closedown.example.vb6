@@ -276,7 +276,7 @@ Attribute VB_Exposed = False
 ' 팝빌 휴폐업조회 API VB 6.0 SDK Example
 '
 ' - VB6 SDK 연동환경 설정방법 안내 : https://docs.popbill.com/closedown/tutorial/vb
-' - 업데이트 일자 : 2021-10-07
+' - 업데이트 일자 : 2022-01-13
 ' - 연동 기술지원 연락처 : 1600-9854 / 070-4504-2991
 ' - 연동 기술지원 이메일 : code@linkhub.co.kr
 '
@@ -487,9 +487,6 @@ Private Sub btnRegistContact_Click()
     '회사조회 권한여부, True-회사조회 / False-개인조회
     joinData.searchAllAllowYN = True
     
-    '관리자 여부, True-관리자 / False-사용자
-    joinData.mgrYN = False
-    
     Set Response = ClosedownService.RegistContact(txtUserCorpNum.Text, joinData)
     
     If Response Is Nothing Then
@@ -555,9 +552,6 @@ Private Sub btnUpdateContact_Click()
 
     '회사조회 권한여부, True-회사조회 / False-개인조회
     joinData.searchAllAllowYN = True
-    
-    '관리자 여부, True-관리자 / False-사용자
-    joinData.mgrYN = False
                 
     Set Response = ClosedownService.UpdateContact(txtUserCorpNum.Text, joinData, txtUserID.Text)
     
