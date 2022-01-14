@@ -1,21 +1,20 @@
 VERSION 5.00
 Begin VB.Form frmExample 
    Caption         =   "팝빌 휴폐업조회 SDK 예제"
-   ClientHeight    =   4830
+   ClientHeight    =   4935
    ClientLeft      =   60
    ClientTop       =   450
    ClientWidth     =   15180
    LinkTopic       =   "Form1"
-   ScaleHeight     =   4830
+   ScaleHeight     =   4935
    ScaleWidth      =   15180
    StartUpPosition =   2  '화면 가운데
-   Begin VB.CommandButton btnGetAccessURL 
-      Caption         =   "팝빌 로그인 URL"
-      Height          =   375
-      Left            =   9000
-      TabIndex        =   5
-      Top             =   1485
-      Width           =   1575
+   Begin VB.TextBox txtURL 
+      Height          =   270
+      Left            =   11400
+      TabIndex        =   36
+      Top             =   360
+      Width           =   3495
    End
    Begin VB.CommandButton btnUnitCost 
       Caption         =   "조회단가 확인"
@@ -43,16 +42,16 @@ Begin VB.Form frmExample
    End
    Begin VB.Frame Frame1 
       Caption         =   "회원정보"
-      Height          =   1815
+      Height          =   2295
       Left            =   600
-      TabIndex        =   6
+      TabIndex        =   5
       Top             =   1200
       Width           =   1695
       Begin VB.CommandButton btnJoinMember 
          Caption         =   "회원가입"
          Height          =   375
          Left            =   120
-         TabIndex        =   19
+         TabIndex        =   18
          Top             =   1200
          Width           =   1455
       End
@@ -60,7 +59,7 @@ Begin VB.Form frmExample
          Caption         =   "가입여부 확인"
          Height          =   375
          Left            =   120
-         TabIndex        =   18
+         TabIndex        =   17
          Top             =   240
          Width           =   1455
       End
@@ -68,63 +67,79 @@ Begin VB.Form frmExample
          Caption         =   "ID 중복 확인"
          Height          =   375
          Left            =   120
-         TabIndex        =   16
+         TabIndex        =   15
          Top             =   720
          Width           =   1455
       End
    End
    Begin VB.Frame Frame2 
       Caption         =   "포인트 관련"
-      Height          =   1815
+      Height          =   2295
       Left            =   2400
-      TabIndex        =   7
+      TabIndex        =   6
       Top             =   1200
       Width           =   1935
       Begin VB.CommandButton btnGetChargeInfo 
          Caption         =   "과금정보 확인"
          Height          =   375
          Left            =   120
-         TabIndex        =   25
+         TabIndex        =   24
          Top             =   240
          Width           =   1695
       End
    End
    Begin VB.Frame Frame3 
       Caption         =   "팝빌 URL 관련"
-      Height          =   1815
-      Left            =   8880
-      TabIndex        =   8
+      Height          =   2295
+      Left            =   9000
+      TabIndex        =   7
       Top             =   1200
       Width           =   1815
+      Begin VB.CommandButton btnGetAccessURL 
+         Caption         =   "팝빌 로그인 URL"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   34
+         Top             =   240
+         Width           =   1575
+      End
    End
    Begin VB.Frame Frame4 
       Caption         =   "담당자 관련"
-      Height          =   1815
-      Left            =   10800
-      TabIndex        =   9
+      Height          =   2295
+      Left            =   10920
+      TabIndex        =   8
       Top             =   1200
       Width           =   1935
+      Begin VB.CommandButton btnGetContactInfo 
+         Caption         =   "담당자 정보 확인"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   31
+         Top             =   720
+         Width           =   1695
+      End
       Begin VB.CommandButton btnUpdateContact 
          Caption         =   "담당자 정보 수정"
          Height          =   375
          Left            =   120
-         TabIndex        =   22
-         Top             =   1200
+         TabIndex        =   21
+         Top             =   1680
          Width           =   1695
       End
       Begin VB.CommandButton btnListContact 
          Caption         =   "담당자 목록 조회"
          Height          =   375
          Left            =   120
-         TabIndex        =   21
-         Top             =   720
+         TabIndex        =   20
+         Top             =   1200
          Width           =   1695
       End
       Begin VB.CommandButton btnRegistContact 
          Caption         =   "담당자 추가"
          Height          =   375
          Left            =   120
-         TabIndex        =   20
+         TabIndex        =   19
          Top             =   240
          Width           =   1695
       End
@@ -133,14 +148,14 @@ Begin VB.Form frmExample
       Caption         =   "휴폐업조회"
       Height          =   975
       Left            =   360
-      TabIndex        =   10
-      Top             =   3480
+      TabIndex        =   9
+      Top             =   3720
       Width           =   8295
       Begin VB.CommandButton btnCheckCorpNums 
          Caption         =   "대량조회"
          Height          =   495
          Left            =   5520
-         TabIndex        =   15
+         TabIndex        =   14
          Top             =   240
          Width           =   1215
       End
@@ -148,14 +163,14 @@ Begin VB.Form frmExample
          Caption         =   "단건조회"
          Height          =   495
          Left            =   4080
-         TabIndex        =   14
+         TabIndex        =   13
          Top             =   240
          Width           =   1215
       End
       Begin VB.TextBox txtCheckCorpNum 
          Height          =   270
          Left            =   2040
-         TabIndex        =   13
+         TabIndex        =   12
          Text            =   "6798700433"
          Top             =   360
          Width           =   1815
@@ -164,30 +179,30 @@ Begin VB.Form frmExample
          Caption         =   "조회할 사업자번호 : "
          Height          =   255
          Left            =   240
-         TabIndex        =   11
+         TabIndex        =   10
          Top             =   360
          Width           =   1695
       End
    End
    Begin VB.Frame Frame6 
       Caption         =   "팝빌기본 API"
-      Height          =   2295
+      Height          =   2655
       Left            =   360
-      TabIndex        =   12
+      TabIndex        =   11
       Top             =   960
       Width           =   14535
       Begin VB.Frame Frame9 
          Caption         =   "파트너과금 포인트"
-         Height          =   1815
-         Left            =   6240
-         TabIndex        =   27
+         Height          =   2295
+         Left            =   6360
+         TabIndex        =   26
          Top             =   240
          Width           =   2175
          Begin VB.CommandButton btnGetPartnerURL_CHRG 
             Caption         =   "포인트 충전 URL"
             Height          =   375
             Left            =   120
-            TabIndex        =   31
+            TabIndex        =   30
             Top             =   720
             Width           =   1935
          End
@@ -195,47 +210,63 @@ Begin VB.Form frmExample
             Caption         =   "파트너포인트 확인"
             Height          =   375
             Left            =   120
-            TabIndex        =   30
+            TabIndex        =   29
             Top             =   240
             Width           =   1935
          End
       End
       Begin VB.Frame Frame8 
          Caption         =   "연동과금 포인트"
-         Height          =   1815
+         Height          =   2295
          Left            =   4080
-         TabIndex        =   26
+         TabIndex        =   25
          Top             =   240
-         Width           =   2055
+         Width           =   2175
+         Begin VB.CommandButton btnGetPaymentURL 
+            Caption         =   "포인트 결제내역 URL"
+            Height          =   375
+            Left            =   120
+            TabIndex        =   33
+            Top             =   1200
+            Width           =   1935
+         End
+         Begin VB.CommandButton btnGetUseHistoryURL 
+            Caption         =   "포인트 사용내역 URL"
+            Height          =   375
+            Left            =   120
+            TabIndex        =   32
+            Top             =   1680
+            Width           =   1935
+         End
          Begin VB.CommandButton btnGetChargeURL 
             Caption         =   "포인트 충전 URL"
             Height          =   375
             Left            =   120
-            TabIndex        =   29
+            TabIndex        =   28
             Top             =   720
-            Width           =   1815
+            Width           =   1935
          End
          Begin VB.CommandButton btnGetBalance 
             Caption         =   "잔여포인트 확인"
             Height          =   375
             Left            =   120
-            TabIndex        =   28
+            TabIndex        =   27
             Top             =   240
-            Width           =   1815
+            Width           =   1935
          End
       End
       Begin VB.Frame Frame7 
          Caption         =   "회사정보 관련"
-         Height          =   1815
-         Left            =   12480
-         TabIndex        =   17
+         Height          =   2295
+         Left            =   12600
+         TabIndex        =   16
          Top             =   240
          Width           =   1815
          Begin VB.CommandButton btnUpdateCorpInfo 
             Caption         =   "회사정보 수정"
             Height          =   375
             Left            =   120
-            TabIndex        =   24
+            TabIndex        =   23
             Top             =   720
             Width           =   1575
          End
@@ -243,11 +274,19 @@ Begin VB.Form frmExample
             Caption         =   "회사정보 조회"
             Height          =   375
             Left            =   120
-            TabIndex        =   23
+            TabIndex        =   22
             Top             =   240
             Width           =   1575
          End
       End
+   End
+   Begin VB.Label Label3 
+      Caption         =   "URL : "
+      Height          =   225
+      Left            =   10680
+      TabIndex        =   35
+      Top             =   360
+      Width           =   735
    End
    Begin VB.Label Label2 
       Caption         =   "팝빌회원 아이디 : "
@@ -276,7 +315,7 @@ Attribute VB_Exposed = False
 ' 팝빌 휴폐업조회 API VB 6.0 SDK Example
 '
 ' - VB6 SDK 연동환경 설정방법 안내 : https://docs.popbill.com/closedown/tutorial/vb
-' - 업데이트 일자 : 2022-01-13
+' - 업데이트 일자 : 2022-01-14
 ' - 연동 기술지원 연락처 : 1600-9854 / 070-4504-2991
 ' - 연동 기술지원 이메일 : code@linkhub.co.kr
 '
@@ -295,7 +334,7 @@ Option Explicit
 '=========================================================================
 
 '링크아이디
-Private Const linkID = "TESTER"
+Private Const LinkID = "TESTER"
 
 '비밀키. 유출에 주의하시기 바랍니다.
 Private Const SecretKey = "SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I="
@@ -311,7 +350,7 @@ Private ClosedownService As New PBCDService
 Private Sub btnCheckIsMember_Click()
     Dim Response As PBResponse
     
-    Set Response = ClosedownService.CheckIsMember(txtUserCorpNum.Text, linkID)
+    Set Response = ClosedownService.CheckIsMember(txtUserCorpNum.Text, LinkID)
     
     If Response Is Nothing Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
@@ -347,34 +386,34 @@ Private Sub btnJoinMember_Click()
     Dim Response As PBResponse
     
     '아이디, 6자이상 50자 미만
-    joinData.ID = "userid"
+    joinData.id = "userid"
     
-    '비밀번호, 6자이상 20자 미만
-    joinData.PWD = "pwd_must_be_long_enough"
+    '비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+    joinData.Password = "asdf$%^123"
     
     '파트너링크 아이디
-    joinData.linkID = linkID
+    joinData.LinkID = LinkID
     
     '사업자번호, '-'제외, 10자리
     joinData.CorpNum = "1234567890"
     
     '대표자성명, 최대 100자
-    joinData.CEOName = "대표자성명"
+    joinData.ceoname = "대표자성명"
     
     '상호명, 최대 200자
-    joinData.CorpName = "회원상호"
+    joinData.corpName = "회원상호"
     
     '사업장 주소, 최대 300자
-    joinData.Addr = "주소"
+    joinData.addr = "주소"
     
     '업태, 최대 100자
-    joinData.BizType = "업태"
+    joinData.bizType = "업태"
     
     '종목, 최대 100자
-    joinData.BizClass = "종목"
+    joinData.bizClass = "종목"
 
     '담당자 성명, 최대 100자
-    joinData.contactName = "담당자성명"
+    joinData.ContactName = "담당자성명"
     
     '담당자 이메일, 최대 100자
     joinData.ContactEmail = "test@test.com"
@@ -443,16 +482,17 @@ End Sub
 ' - https://docs.popbill.com/closedown/vb/api#GetAccessURL
 '=========================================================================
 Private Sub btnGetAccessURL_Click()
-    Dim url As String
+    Dim URL As String
     
-    url = ClosedownService.GetAccessURL(txtUserCorpNum.Text, txtUserID.Text)
+    URL = ClosedownService.GetAccessURL(txtUserCorpNum.Text, txtUserID.Text)
     
-    If url = "" Then
+    If URL = "" Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
-    MsgBox "URL : " + vbCrLf + url
+    MsgBox "URL : " + vbCrLf + URL
+    txtURL.Text = URL
 End Sub
 
 '=========================================================================
@@ -464,10 +504,10 @@ Private Sub btnRegistContact_Click()
     Dim Response As PBResponse
     
     '담당자 아이디, 6자 이상 50자 미만
-    joinData.ID = "testkorea"
+    joinData.id = "vbclosedown001"
     
-    '비밀번호, 6자 이상 20자 미만
-    joinData.PWD = "test@test.com"
+    '비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
+    joinData.Password = "asdf$%^123"
     
     '담당자명, 최대 100자
     joinData.personName = "담당자명"
@@ -484,8 +524,8 @@ Private Sub btnRegistContact_Click()
     '담당자 메일주소, 최대 100자
     joinData.email = "test@test.com"
     
-    '회사조회 권한여부, True-회사조회 / False-개인조회
-    joinData.searchAllAllowYN = True
+    '담당자 권한, 1-개인 / 2-읽기 / 3-회사
+    joinData.searchRole = 3
     
     Set Response = ClosedownService.RegistContact(txtUserCorpNum.Text, joinData)
     
@@ -495,6 +535,34 @@ Private Sub btnRegistContact_Click()
     End If
     
     MsgBox ("응답코드 : " + CStr(Response.code) + vbCrLf + "응답메시지 : " + Response.message)
+End Sub
+
+'=========================================================================
+' 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 확인합니다.
+' https://docs.popbill.com/closedown/vb/api#GetContactInfo
+'=========================================================================
+Private Sub btnGetContactInfo_Click()
+    Dim tmp As String
+    Dim info As PBContactInfo
+    Dim ContactID As String
+    
+    ContactID = "testkorea"
+    
+    Set info = ClosedownService.GetContactInfo(txtUserCorpNum.Text, ContactID, txtUserID.Text)
+    
+    If info Is Nothing Then
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    tmp = "id(아이디) | personName(성명) | email(이메일) | hp(휴대폰번호) |  fax(팩스번호) | tel(연락처) | " _
+         + "regDT(등록일시) | searchRole(담당자 권한) | mgrYN(관리자 여부) | state(상태) " + vbCrLf
+    
+   
+    tmp = tmp + info.id + " | " + info.personName + " | " + info.email + " | " + info.hp + " | " + info.fax _
+        + info.tel + " | " + info.regDT + " | " + CStr(info.searchRole) + " | " + CStr(info.mgrYN) + " | " + CStr(info.state) + vbCrLf
+        
+    MsgBox tmp
 End Sub
 
 '=========================================================================
@@ -514,11 +582,11 @@ Private Sub btnListContact_Click()
     End If
     
     tmp = "id(아이디) | personName(성명) | email(이메일) | hp(휴대폰번호) |  fax(팩스번호) | tel(연락처) | " _
-         + "regDT(등록일시) | searchAllAllowYN(회사조회 권한여부) | mgrYN(관리자 여부) | state(상태) " + vbCrLf
+         + "regDT(등록일시) | searchRole(담당자 권한) | mgrYN(관리자 여부) | state(상태) " + vbCrLf
     
     For Each info In resultList
-        tmp = tmp + info.ID + " | " + info.personName + " | " + info.email + " | " + info.hp + " | " + info.fax _
-        + info.tel + " | " + info.regDT + " | " + CStr(info.searchAllAllowYN) + " | " + CStr(info.mgrYN) + " | " + CStr(info.state) + vbCrLf
+        tmp = tmp + info.id + " | " + info.personName + " | " + info.email + " | " + info.hp + " | " + info.fax _
+        + info.tel + " | " + info.regDT + " | " + CStr(info.searchRole) + " | " + CStr(info.mgrYN) + " | " + CStr(info.state) + vbCrLf
     Next
     
     MsgBox tmp
@@ -533,7 +601,7 @@ Private Sub btnUpdateContact_Click()
     Dim Response As PBResponse
     
     '담당자 아이디
-    joinData.ID = txtUserID.Text
+    joinData.id = "vbclosedown001"
     
     '담당자 성명, 최대 100자
     joinData.personName = "담당자명_수정"
@@ -550,8 +618,8 @@ Private Sub btnUpdateContact_Click()
     '담당자 이메일, 최대 100자
     joinData.email = "test@test.com"
 
-    '회사조회 권한여부, True-회사조회 / False-개인조회
-    joinData.searchAllAllowYN = True
+    '담당자 권한, 1-개인 / 2-읽기 / 3-회사
+    joinData.searchRole = 3
                 
     Set Response = ClosedownService.UpdateContact(txtUserCorpNum.Text, joinData, txtUserID.Text)
     
@@ -578,11 +646,11 @@ Private Sub btnGetCorpInfo_Click()
         Exit Sub
     End If
     
-    tmp = tmp + "ceoname (대표자성명) : " + CorpInfo.CEOName + vbCrLf
-    tmp = tmp + "corpName (상호명) : " + CorpInfo.CorpName + vbCrLf
-    tmp = tmp + "addr (주소) : " + CorpInfo.Addr + vbCrLf
-    tmp = tmp + "bizType (업태) : " + CorpInfo.BizType + vbCrLf
-    tmp = tmp + "bizClass (종목) : " + CorpInfo.BizClass + vbCrLf
+    tmp = tmp + "ceoname (대표자성명) : " + CorpInfo.ceoname + vbCrLf
+    tmp = tmp + "corpName (상호명) : " + CorpInfo.corpName + vbCrLf
+    tmp = tmp + "addr (주소) : " + CorpInfo.addr + vbCrLf
+    tmp = tmp + "bizType (업태) : " + CorpInfo.bizType + vbCrLf
+    tmp = tmp + "bizClass (종목) : " + CorpInfo.bizClass + vbCrLf
     
     MsgBox tmp
 End Sub
@@ -596,19 +664,19 @@ Private Sub btnUpdateCorpInfo_Click()
     Dim Response As PBResponse
     
     '대표자명, 최대 100자
-    CorpInfo.CEOName = "대표자"
+    CorpInfo.ceoname = "대표자"
     
     '상호, 최대 200자
-    CorpInfo.CorpName = "상호"
+    CorpInfo.corpName = "상호"
     
     '주소, 최대 300자
-    CorpInfo.Addr = "서울특별시"
+    CorpInfo.addr = "서울특별시"
     
     '업태, 최대 100자
-    CorpInfo.BizType = "업태"
+    CorpInfo.bizType = "업태"
     
     '종목, 최대 100자
-    CorpInfo.BizClass = "종목"
+    CorpInfo.bizClass = "종목"
     
     Set Response = ClosedownService.UpdateCorpInfo(txtUserCorpNum.Text, CorpInfo)
     
@@ -645,16 +713,55 @@ End Sub
 ' - https://docs.popbill.com/closedown/vb/api#GetChargeURL
 '=========================================================================
 Private Sub btnGetChargeURL_Click()
-    Dim url As String
+    Dim URL As String
     
-    url = ClosedownService.GetChargeURL(txtUserCorpNum.Text, txtUserID.Text)
+    URL = ClosedownService.GetChargeURL(txtUserCorpNum.Text, txtUserID.Text)
     
-    If url = "" Then
+    If URL = "" Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
-    MsgBox "URL : " + vbCrLf + url
+    MsgBox "URL : " + vbCrLf + URL
+    txtURL.Text = URL
+End Sub
+
+'=========================================================================
+' 연동회원 포인트 결제내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
+' - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
+' - https://docs.popbill.com/closedown/vb/api#GetPaymentURL
+'=========================================================================
+Private Sub btnGetPaymentURL_Click()
+    Dim URL As String
+           
+    URL = ClosedownService.GetPaymentURL(txtUserCorpNum.Text, txtUserID.Text)
+    
+    If URL = "" Then
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    MsgBox "URL : " + vbCrLf + URL
+    txtURL.Text = URL
+End Sub
+
+'=========================================================================
+' 연동회원 포인트 사용내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
+' - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
+' - https://docs.popbill.com/closedown/vb/api#GetUseHistoryURL
+'=========================================================================
+Private Sub btnGetUseHistoryURL_Click()
+    Dim URL As String
+           
+    URL = ClosedownService.GetUseHistoryURL(txtUserCorpNum.Text, txtUserID.Text)
+    
+    If URL = "" Then
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    MsgBox "URL : " + vbCrLf + URL
+    txtURL.Text = URL
 End Sub
 
 '=========================================================================
@@ -681,16 +788,17 @@ End Sub
 ' - https://docs.popbill.com/closedown/vb/api#GetPartnerURL
 '=========================================================================
 Private Sub btnGetPartnerURL_CHRG_Click()
-    Dim url As String
+    Dim URL As String
     
-    url = ClosedownService.GetPartnerURL(txtUserCorpNum.Text, "CHRG")
+    URL = ClosedownService.GetPartnerURL(txtUserCorpNum.Text, "CHRG")
        
-    If url = "" Then
+    If URL = "" Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
         Exit Sub
     End If
     
-    MsgBox "URL : " + vbCrLf + url
+    MsgBox "URL : " + vbCrLf + URL
+    txtURL.Text = URL
     
 End Sub
 
@@ -761,7 +869,7 @@ End Sub
 Private Sub Form_Load()
 
     '모듈 초기화
-    ClosedownService.Initialize linkID, SecretKey
+    ClosedownService.Initialize LinkID, SecretKey
     
     '연동환경 설정값 True(개발용), False(상업용)
     ClosedownService.IsTest = True
