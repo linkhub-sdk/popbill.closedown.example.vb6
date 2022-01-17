@@ -314,15 +314,14 @@ Attribute VB_Exposed = False
 '
 ' 팝빌 휴폐업조회 API VB 6.0 SDK Example
 '
+' - 업데이트 일자 : 2022-01-17
+' - 연동 기술지원 연락처 : 1600-9854
+' - 연동 기술지원 이메일 : code@linkhubcorp.com
 ' - VB6 SDK 연동환경 설정방법 안내 : https://docs.popbill.com/closedown/tutorial/vb
-' - 업데이트 일자 : 2022-01-14
-' - 연동 기술지원 연락처 : 1600-9854 / 070-4504-2991
-' - 연동 기술지원 이메일 : code@linkhub.co.kr
 '
 ' <테스트 연동개발 준비사항>
-' 1) 25, 28번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를
+' 1) 24, 27번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를
 '    링크허브 가입시 메일로 발급받은 인증정보를 참조하여 변경합니다.
-' 2) 팝빌 개발용 사이트(test.popbill.com)에 연동회원으로 가입합니다.
 '=========================================================================
 
 Option Explicit
@@ -398,19 +397,19 @@ Private Sub btnJoinMember_Click()
     joinData.CorpNum = "1234567890"
     
     '대표자성명, 최대 100자
-    joinData.ceoname = "대표자성명"
+    joinData.CEOName = "대표자성명"
     
     '상호명, 최대 200자
-    joinData.corpName = "회원상호"
+    joinData.CorpName = "회원상호"
     
     '사업장 주소, 최대 300자
-    joinData.addr = "주소"
+    joinData.Addr = "주소"
     
     '업태, 최대 100자
-    joinData.bizType = "업태"
+    joinData.BizType = "업태"
     
     '종목, 최대 100자
-    joinData.bizClass = "종목"
+    joinData.BizClass = "종목"
 
     '담당자 성명, 최대 100자
     joinData.ContactName = "담당자성명"
@@ -646,11 +645,11 @@ Private Sub btnGetCorpInfo_Click()
         Exit Sub
     End If
     
-    tmp = tmp + "ceoname (대표자성명) : " + CorpInfo.ceoname + vbCrLf
-    tmp = tmp + "corpName (상호명) : " + CorpInfo.corpName + vbCrLf
-    tmp = tmp + "addr (주소) : " + CorpInfo.addr + vbCrLf
-    tmp = tmp + "bizType (업태) : " + CorpInfo.bizType + vbCrLf
-    tmp = tmp + "bizClass (종목) : " + CorpInfo.bizClass + vbCrLf
+    tmp = tmp + "ceoname (대표자성명) : " + CorpInfo.CEOName + vbCrLf
+    tmp = tmp + "corpName (상호명) : " + CorpInfo.CorpName + vbCrLf
+    tmp = tmp + "addr (주소) : " + CorpInfo.Addr + vbCrLf
+    tmp = tmp + "bizType (업태) : " + CorpInfo.BizType + vbCrLf
+    tmp = tmp + "bizClass (종목) : " + CorpInfo.BizClass + vbCrLf
     
     MsgBox tmp
 End Sub
@@ -664,19 +663,19 @@ Private Sub btnUpdateCorpInfo_Click()
     Dim Response As PBResponse
     
     '대표자명, 최대 100자
-    CorpInfo.ceoname = "대표자"
+    CorpInfo.CEOName = "대표자"
     
     '상호, 최대 200자
-    CorpInfo.corpName = "상호"
+    CorpInfo.CorpName = "상호"
     
     '주소, 최대 300자
-    CorpInfo.addr = "서울특별시"
+    CorpInfo.Addr = "서울특별시"
     
     '업태, 최대 100자
-    CorpInfo.bizType = "업태"
+    CorpInfo.BizType = "업태"
     
     '종목, 최대 100자
-    CorpInfo.bizClass = "종목"
+    CorpInfo.BizClass = "종목"
     
     Set Response = ClosedownService.UpdateCorpInfo(txtUserCorpNum.Text, CorpInfo)
     
@@ -818,7 +817,7 @@ Private Sub btnCheckCorpNum_Click()
     End If
     
     tmp = tmp + "* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업" + vbCrLf
-    tmp = tmp + "* type (사업자 과세유형) : null-알수없음, 10-일반과세자, 20-면세과세자, 30-간이과세자, 31-간이과세자(세금계산서 발급사업자), 40-비영리법인, 국가기관" + vbCrLf + vbCrLf
+    tmp = tmp + "* taxType (사업자 과세유형) : null-알수없음, 10-일반과세자, 20-면세과세자, 30-간이과세자, 31-간이과세자(세금계산서 발급사업자), 40-비영리법인, 국가기관" + vbCrLf + vbCrLf
     
     tmp = tmp + "corpNum (사업자번호) : " + CorpState.CorpNum + vbCrLf
     tmp = tmp + "state (휴폐업상태) : " + CorpState.state + vbCrLf
@@ -853,7 +852,7 @@ Private Sub btnCheckCorpNums_Click()
     End If
     
     tmp = tmp + "* state (휴폐업상태) : null-알수없음, 0-등록되지 않은 사업자번호, 1-사업중, 2-폐업, 3-휴업" + vbCrLf
-    tmp = tmp + "* type (과세유형 전환일자) : null-알수없음, 10-일반과세자, 20-면세과세자, 30-간이과세자, 31-간이과세자(세금계산서 발급사업자), 40-비영리법인, 국가기관" + vbCrLf + vbCrLf
+    tmp = tmp + "* taxType (사업자 과세유형) : null-알수없음, 10-일반과세자, 20-면세과세자, 30-간이과세자, 31-간이과세자(세금계산서 발급사업자), 40-비영리법인, 국가기관" + vbCrLf + vbCrLf
     
     For Each state In resultList
         tmp = tmp + "corpNum (사업자번호) : " + state.CorpNum + vbCrLf
@@ -871,16 +870,13 @@ Private Sub Form_Load()
     '모듈 초기화
     ClosedownService.Initialize LinkID, SecretKey
     
-    '연동환경 설정값 True(개발용), False(상업용)
+    '연동환경설정값, True-개발용 False-상업용
     ClosedownService.IsTest = True
     
-    '인증토큰 IP제한기능 사용여부, True(권장)
+    '인증토큰 IP제한기능 사용여부, True-사용, False-미사용, 기본값(True)
     ClosedownService.IPRestrictOnOff = True
     
-    ' 팝빌 API 서비스 고정 IP 사용여부, True-사용, False-미사용, 기본값(False)
-    ClosedownService.UseStaticIP = False
-    
-    ' 로컬시스템 시간 사용여부 True-사용, Fasle-미사용, 기본값(False)
+    '로컬시스템 시간 사용여부 True-사용, Fasle-미사용, 기본값(False)
     ClosedownService.UseLocalTimeYN = False
     
 End Sub
