@@ -545,6 +545,7 @@ Private Sub btnGetContactInfo_Click()
     Dim info As PBContactInfo
     Dim ContactID As String
     
+    '확인할 담당자 아이디
     ContactID = "testkorea"
     
     Set info = ClosedownService.GetContactInfo(txtUserCorpNum.Text, ContactID, txtUserID.Text)
