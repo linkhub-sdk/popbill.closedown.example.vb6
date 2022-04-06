@@ -312,38 +312,55 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 '=========================================================================
 '
-' 팝빌 휴폐업조회 API VB 6.0 SDK Example
+' 팝빌 휴폐업조회 API VB SDK Example
 '
-' - 업데이트 일자 : 2022-01-17
+' - 업데이트 일자 : 2022-04-06
 ' - 연동 기술지원 연락처 : 1600-9854
 ' - 연동 기술지원 이메일 : code@linkhubcorp.com
-' - VB6 SDK 연동환경 설정방법 안내 : https://docs.popbill.com/closedown/tutorial/vb
+' - VB SDK 연동환경 설정방법 안내 : https://docs.popbill.com/closedown/tutorial/vb
 '
 ' <테스트 연동개발 준비사항>
-' 1) 24, 27번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를
+' 1) 19, 22번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를
 '    링크허브 가입시 메일로 발급받은 인증정보를 참조하여 변경합니다.
+'
 '=========================================================================
 
 Option Explicit
 
-'=========================================================================
-' - 인증정보(링크아이디, 비밀키)는 파트너의 연동회원을 식별하는
-'   인증에 사용되는 정보로 유출되지 않도록 주의하시기 바랍니다.
-' - 상업용 전환이후에도 인증정보(링크아이디, 비밀키)는 변경되지 않습니다.
-'=========================================================================
-
 '링크아이디
 Private Const LinkID = "TESTER"
 
-'비밀키. 유출에 주의하시기 바랍니다.
+'비밀키
 Private Const SecretKey = "SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I="
 
-'휴폐업조회 서비스 객체 생성
+'휴폐업조회 클래스 선언
 Private ClosedownService As New PBCDService
+
+
+'=========================================================================
+' 팝빌 휴폐업조회 API 서비스 과금정보를 확인합니다.
+' - https://docs.popbill.com/closedown/vb/api#GetChargeInfo
+'=========================================================================
+Private Sub btnChargeInfo_Click()
+    Dim ChargeInfo As PBChargeInfo
+    Dim tmp As String
+    
+    Set ChargeInfo = ClosedownService.GetChargeInfo(txtUserCorpNum.Text)
+     
+    If ChargeInfo Is Nothing Then
+        MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
+        Exit Sub
+    End If
+    
+    tmp = tmp + "unitCost (조회단가) : " + ChargeInfo.unitCost + vbCrLf
+    tmp = tmp + "chargeMethod (과금유형) : " + ChargeInfo.chargeMethod + vbCrLf
+    tmp = tmp + "rateSystem (과금제도) : " + ChargeInfo.rateSystem + vbCrLf
+    
+    MsgBox tmp
+End Sub
 
 '=========================================================================
 ' 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
-' - LinkID는 인증정보로 설정되어 있는 링크아이디 값입니다.
 ' - https://docs.popbill.com/closedown/vb/api#CheckIsMember
 '=========================================================================
 Private Sub btnCheckIsMember_Click()
@@ -384,7 +401,7 @@ Private Sub btnJoinMember_Click()
     Dim joinData As New PBJoinForm
     Dim Response As PBResponse
     
-    '아이디, 6자이상 50자 미만
+    '아이디, 6자이상 50자 이하
     joinData.id = "userid"
     
     '비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
@@ -420,12 +437,6 @@ Private Sub btnJoinMember_Click()
     '담당자 연락처, 최대 20자
     joinData.ContactTEL = "02-999-9999"
     
-    '담당자 휴대폰번호, 최대 20자
-    joinData.ContactHP = "010-1234-5678"
-    
-    '담당자 팩스번호, 최대 20자
-    joinData.ContactFAX = "02-999-9998"
-    
     Set Response = ClosedownService.JoinMember(joinData)
     
     If Response Is Nothing Then
@@ -454,7 +465,7 @@ Private Sub btnUnitCost_Click()
 End Sub
 
 '=========================================================================
-' 휴폐업조회 API 서비스 과금정보를 확인합니다.
+' 팝빌 휴폐업조회 API 서비스 과금정보를 확인합니다.
 ' - https://docs.popbill.com/closedown/vb/api#GetChargeInfo
 '=========================================================================
 Private Sub btnGetChargeInfo_Click()
@@ -502,8 +513,8 @@ Private Sub btnRegistContact_Click()
     Dim joinData As New PBContactInfo
     Dim Response As PBResponse
     
-    '담당자 아이디, 6자 이상 50자 미만
-    joinData.id = "vbclosedown001"
+    '담당자 아이디, 6자 이상 50자 이하
+    joinData.id = "testkorea"
     
     '비밀번호, 8자 이상 20자 이하(영문, 숫자, 특수문자 조합)
     joinData.Password = "asdf$%^123"
@@ -513,12 +524,6 @@ Private Sub btnRegistContact_Click()
     
     '담당자 연락처, 최대 20자
     joinData.tel = "070-1234-1234"
-    
-    '담당자 휴대폰번호, 최대 20자
-    joinData.hp = "010-1234-1234"
-    
-    '담당자 팩스번,최대 20자
-    joinData.fax = "070-1234-1234"
     
     '담당자 메일주소, 최대 100자
     joinData.email = "test@test.com"
@@ -545,7 +550,6 @@ Private Sub btnGetContactInfo_Click()
     Dim info As PBContactInfo
     Dim ContactID As String
     
-    '확인할 담당자 아이디
     ContactID = "testkorea"
     
     Set info = ClosedownService.GetContactInfo(txtUserCorpNum.Text, ContactID, txtUserID.Text)
@@ -555,12 +559,12 @@ Private Sub btnGetContactInfo_Click()
         Exit Sub
     End If
     
-    tmp = "id(아이디) | personName(성명) | email(이메일) | hp(휴대폰번호) |  fax(팩스번호) | tel(연락처) | " _
+    tmp = "id(아이디) | personName(성명) | email(이메일) | tel(연락처) | " _
          + "regDT(등록일시) | searchRole(담당자 권한) | mgrYN(관리자 여부) | state(상태) " + vbCrLf
     
    
-    tmp = tmp + info.id + " | " + info.personName + " | " + info.email + " | " + info.hp + " | " + info.fax _
-        + info.tel + " | " + info.regDT + " | " + CStr(info.searchRole) + " | " + CStr(info.mgrYN) + " | " + CStr(info.state) + vbCrLf
+    tmp = tmp + info.id + " | " + info.personName + " | " + info.email + " | " + info.tel + " | " _
+            + info.regDT + " | " + CStr(info.searchRole) + " | " + CStr(info.mgrYN) + " | " + CStr(info.state) + vbCrLf
         
     MsgBox tmp
 End Sub
@@ -581,11 +585,11 @@ Private Sub btnListContact_Click()
         Exit Sub
     End If
     
-    tmp = "id(아이디) | personName(성명) | email(이메일) | hp(휴대폰번호) |  fax(팩스번호) | tel(연락처) | " _
+    tmp = "id(아이디) | personName(성명) | email(이메일) | tel(연락처) | " _
          + "regDT(등록일시) | searchRole(담당자 권한) | mgrYN(관리자 여부) | state(상태) " + vbCrLf
     
     For Each info In resultList
-        tmp = tmp + info.id + " | " + info.personName + " | " + info.email + " | " + info.hp + " | " + info.fax _
+        tmp = tmp + info.id + " | " + info.personName + " | " + info.email + " | " _
         + info.tel + " | " + info.regDT + " | " + CStr(info.searchRole) + " | " + CStr(info.mgrYN) + " | " + CStr(info.state) + vbCrLf
     Next
     
@@ -601,7 +605,7 @@ Private Sub btnUpdateContact_Click()
     Dim Response As PBResponse
     
     '담당자 아이디
-    joinData.id = "vbclosedown001"
+    joinData.id = txtUserID.Text
     
     '담당자 성명, 최대 100자
     joinData.personName = "담당자명_수정"
@@ -656,7 +660,7 @@ Private Sub btnGetCorpInfo_Click()
 End Sub
 
 '=========================================================================
-' 연동회원의 회사정보를 수정합니다.
+' 연동회원의 회사 정보를 수정합니다.
 ' - https://docs.popbill.com/closedown/vb/api#UpdateCorpInfo
 '=========================================================================
 Private Sub btnUpdateCorpInfo_Click()
@@ -690,7 +694,6 @@ End Sub
 
 '=========================================================================
 ' 연동회원의 잔여포인트를 확인합니다.
-' - 과금방식이 파트너과금인 경우 파트너 잔여포인트(GetPartnerBalance API)를 통해 확인하시기 바랍니다.
 ' - https://docs.popbill.com/closedown/vb/api#GetBalance
 '=========================================================================
 
@@ -766,7 +769,6 @@ End Sub
 
 '=========================================================================
 ' 파트너의 잔여포인트를 확인합니다.
-' - 과금방식이 연동과금인 경우 연동회원 잔여포인트(GetBalance API)를 통해 확인하시기 바랍니다.
 ' - https://docs.popbill.com/closedown/vb/api#GetPartnerBalance
 '=========================================================================
 Private Sub btnGetPartnerBalance_Click()
@@ -784,7 +786,7 @@ End Sub
 
 '=========================================================================
 ' 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
-' - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
+' - URL 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
 ' - https://docs.popbill.com/closedown/vb/api#GetPartnerURL
 '=========================================================================
 Private Sub btnGetPartnerURL_CHRG_Click()
@@ -799,7 +801,6 @@ Private Sub btnGetPartnerURL_CHRG_Click()
     
     MsgBox "URL : " + vbCrLf + URL
     txtURL.Text = URL
-    
 End Sub
 
 '=========================================================================
@@ -842,8 +843,8 @@ Private Sub btnCheckCorpNums_Click()
     
     '조회할 사업자번호 배열 (최대 1000건)
     CorpNumList.Add "1234567890"
-    CorpNumList.Add "1231212312"
-    CorpNumList.Add "679-87-00433"
+    CorpNumList.Add "401-03-94930"
+    CorpNumList.Add "120-86-75212"
         
     Set resultList = ClosedownService.CheckCorpNums(txtUserCorpNum.Text, CorpNumList)
      
@@ -866,9 +867,10 @@ Private Sub btnCheckCorpNums_Click()
     
     MsgBox tmp, , "휴폐업조회 - 대량"
 End Sub
+
 Private Sub Form_Load()
 
-    '모듈 초기화
+    '휴폐업조회 모듈 초기화
     ClosedownService.Initialize LinkID, SecretKey
     
     '연동환경설정값, True-개발용 False-상업용
@@ -879,6 +881,8 @@ Private Sub Form_Load()
     
     '로컬시스템 시간 사용여부 True-사용, False-미사용, 기본값(False)
     ClosedownService.UseLocalTimeYN = False
-    
 End Sub
+
+
+
 
