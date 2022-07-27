@@ -314,7 +314,7 @@ Attribute VB_Exposed = False
 '
 ' 팝빌 휴폐업조회 API VB SDK Example
 '
-' - 업데이트 일자 : 2022-04-06
+' - 업데이트 일자 : 2022-07-26
 ' - 연동 기술지원 연락처 : 1600-9854
 ' - 연동 기술지원 이메일 : code@linkhubcorp.com
 ' - VB SDK 연동환경 설정방법 안내 : https://docs.popbill.com/closedown/tutorial/vb
@@ -552,7 +552,7 @@ Private Sub btnGetContactInfo_Click()
     
     ContactID = "testkorea"
     
-    Set info = ClosedownService.GetContactInfo(txtUserCorpNum.Text, ContactID, txtUserID.Text)
+    Set info = ClosedownService.GetContactInfo(txtUserCorpNum.Text, ContactID)
     
     If info Is Nothing Then
         MsgBox ("응답코드 : " + CStr(ClosedownService.LastErrCode) + vbCrLf + "응답메시지 : " + ClosedownService.LastErrMessage)
