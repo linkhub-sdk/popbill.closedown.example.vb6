@@ -317,7 +317,7 @@ Attribute VB_Exposed = False
 ' - 업데이트 일자 : 2022-07-26
 ' - 연동 기술지원 연락처 : 1600-9854
 ' - 연동 기술지원 이메일 : code@linkhubcorp.com
-' - VB SDK 연동환경 설정방법 안내 : https://docs.popbill.com/closedown/tutorial/vb
+' - VB SDK 연동환경 설정방법 안내 : https://developers.popbill.com/guide/closedown/vb/getting-started/tutorial
 '
 ' <테스트 연동개발 준비사항>
 ' 1) 19, 22번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를
@@ -339,7 +339,7 @@ Private ClosedownService As New PBCDService
 
 '=========================================================================
 ' 팝빌 휴폐업조회 API 서비스 과금정보를 확인합니다.
-' - https://docs.popbill.com/closedown/vb/api#GetChargeInfo
+' - https://developers.popbill.com/reference/closedown/vb/api/point#GetChargeInfo
 '=========================================================================
 Private Sub btnChargeInfo_Click()
     Dim ChargeInfo As PBChargeInfo
@@ -361,7 +361,7 @@ End Sub
 
 '=========================================================================
 ' 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
-' - https://docs.popbill.com/closedown/vb/api#CheckIsMember
+' - https://developers.popbill.com/reference/closedown/vb/api/member#CheckIsMember
 '=========================================================================
 Private Sub btnCheckIsMember_Click()
     Dim Response As PBResponse
@@ -378,7 +378,7 @@ End Sub
 
 '=========================================================================
 ' 사용하고자 하는 아이디의 중복여부를 확인합니다.
-' - https://docs.popbill.com/closedown/vb/api#CheckID
+' - https://developers.popbill.com/reference/closedown/vb/api/member#CheckID
 '=========================================================================
 Private Sub btnCheckID_Click()
     Dim Response As PBResponse
@@ -395,7 +395,7 @@ End Sub
 
 '=========================================================================
 ' 사용자를 연동회원으로 가입처리합니다.
-' - https://docs.popbill.com/closedown/vb/api#JoinMember
+' - https://developers.popbill.com/reference/closedown/vb/api/member#JoinMember
 '=========================================================================
 Private Sub btnJoinMember_Click()
     Dim joinData As New PBJoinForm
@@ -449,7 +449,7 @@ End Sub
 
 '=========================================================================
 ' 휴폐업 조회시 과금되는 포인트 단가를 확인합니다.
-' - https://docs.popbill.com/closedown/vb/api#GetUnitCost
+' - https://developers.popbill.com/reference/closedown/vb/api/point#GetUnitCost
 '=========================================================================
 Private Sub btnUnitCost_Click()
     Dim unitCost As Double
@@ -466,7 +466,7 @@ End Sub
 
 '=========================================================================
 ' 팝빌 휴폐업조회 API 서비스 과금정보를 확인합니다.
-' - https://docs.popbill.com/closedown/vb/api#GetChargeInfo
+' - https://developers.popbill.com/reference/closedown/vb/api/point#GetChargeInfo
 '=========================================================================
 Private Sub btnGetChargeInfo_Click()
     Dim ChargeInfo As PBChargeInfo
@@ -489,7 +489,7 @@ End Sub
 '=========================================================================
 ' 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.
 ' - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-' - https://docs.popbill.com/closedown/vb/api#GetAccessURL
+' - https://developers.popbill.com/reference/closedown/vb/api/member#GetAccessURL
 '=========================================================================
 Private Sub btnGetAccessURL_Click()
     Dim URL As String
@@ -507,7 +507,7 @@ End Sub
 
 '=========================================================================
 ' 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
-' - https://docs.popbill.com/closedown/vb/api#RegistContact
+' - https://developers.popbill.com/reference/closedown/vb/api/member#RegistContact
 '=========================================================================
 Private Sub btnRegistContact_Click()
     Dim joinData As New PBContactInfo
@@ -543,7 +543,7 @@ End Sub
 
 '=========================================================================
 ' 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 확인합니다.
-' https://docs.popbill.com/closedown/vb/api#GetContactInfo
+' https://developers.popbill.com/reference/closedown/vb/api/member#GetContactInfo
 '=========================================================================
 Private Sub btnGetContactInfo_Click()
     Dim tmp As String
@@ -571,7 +571,7 @@ End Sub
 
 '=========================================================================
 ' 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
-' - https://docs.popbill.com/closedown/vb/api#ListContact
+' - https://developers.popbill.com/reference/closedown/vb/api/member#ListContact
 '=========================================================================
 Private Sub btnListContact_Click()
     Dim resultList As Collection
@@ -598,7 +598,7 @@ End Sub
 
 '=========================================================================
 ' 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
-' - https://docs.popbill.com/closedown/vb/api#UpdateContact
+' - https://developers.popbill.com/reference/closedown/vb/api/member#UpdateContact
 '=========================================================================
 Private Sub btnUpdateContact_Click()
     Dim joinData As New PBContactInfo
@@ -637,7 +637,7 @@ End Sub
 
 '=========================================================================
 ' 연동회원의 회사정보를 확인합니다.
-' - https://docs.popbill.com/closedown/vb/api#GetCorpInfo
+' - https://developers.popbill.com/reference/closedown/vb/api/member#GetCorpInfo
 '=========================================================================
 Private Sub btnGetCorpInfo_Click()
     Dim CorpInfo As PBCorpInfo
@@ -661,7 +661,7 @@ End Sub
 
 '=========================================================================
 ' 연동회원의 회사 정보를 수정합니다.
-' - https://docs.popbill.com/closedown/vb/api#UpdateCorpInfo
+' - https://developers.popbill.com/reference/closedown/vb/api/member#UpdateCorpInfo
 '=========================================================================
 Private Sub btnUpdateCorpInfo_Click()
     Dim CorpInfo As New PBCorpInfo
@@ -694,7 +694,7 @@ End Sub
 
 '=========================================================================
 ' 연동회원의 잔여포인트를 확인합니다.
-' - https://docs.popbill.com/closedown/vb/api#GetBalance
+' - https://developers.popbill.com/reference/closedown/vb/api/point#GetBalance
 '=========================================================================
 
 Private Sub btnGetBalance_Click()
@@ -713,7 +713,7 @@ End Sub
 '=========================================================================
 ' 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
 ' - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-' - https://docs.popbill.com/closedown/vb/api#GetChargeURL
+' - https://developers.popbill.com/reference/closedown/vb/api/point#GetChargeURL
 '=========================================================================
 Private Sub btnGetChargeURL_Click()
     Dim URL As String
@@ -732,7 +732,7 @@ End Sub
 '=========================================================================
 ' 연동회원 포인트 결제내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
 ' - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-' - https://docs.popbill.com/closedown/vb/api#GetPaymentURL
+' - https://developers.popbill.com/reference/closedown/vb/api/point#GetPaymentURL
 '=========================================================================
 Private Sub btnGetPaymentURL_Click()
     Dim URL As String
@@ -751,7 +751,7 @@ End Sub
 '=========================================================================
 ' 연동회원 포인트 사용내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
 ' - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-' - https://docs.popbill.com/closedown/vb/api#GetUseHistoryURL
+' - https://developers.popbill.com/reference/closedown/vb/api/point#GetUseHistoryURL
 '=========================================================================
 Private Sub btnGetUseHistoryURL_Click()
     Dim URL As String
@@ -769,7 +769,7 @@ End Sub
 
 '=========================================================================
 ' 파트너의 잔여포인트를 확인합니다.
-' - https://docs.popbill.com/closedown/vb/api#GetPartnerBalance
+' - https://developers.popbill.com/reference/closedown/vb/api/point#GetPartnerBalance
 '=========================================================================
 Private Sub btnGetPartnerBalance_Click()
     Dim balance As Double
@@ -787,7 +787,7 @@ End Sub
 '=========================================================================
 ' 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
 ' - URL 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-' - https://docs.popbill.com/closedown/vb/api#GetPartnerURL
+' - https://developers.popbill.com/reference/closedown/vb/api/point#GetPartnerURL
 '=========================================================================
 Private Sub btnGetPartnerURL_CHRG_Click()
     Dim URL As String
@@ -805,7 +805,7 @@ End Sub
 
 '=========================================================================
 ' 사업자번호 1건에 대한 휴폐업정보를 확인합니다.
-' - https://docs.popbill.com/closedown/vb/api#CheckCorpNum
+' - https://developers.popbill.com/reference/closedown/vb/api/check#CheckCorpNum
 '=========================================================================
 Private Sub btnCheckCorpNum_Click()
     Dim CorpState As PBCorpState
@@ -833,7 +833,7 @@ End Sub
 
 '=========================================================================
 ' 다수건의 사업자번호에 대한 휴폐업정보를 확인합니다. (최대 1,000건)
-' - https://docs.popbill.com/closedown/vb/api#CheckCorpNums
+' - https://developers.popbill.com/reference/closedown/vb/api/check#CheckCorpNums
 '=========================================================================
 Private Sub btnCheckCorpNums_Click()
     Dim resultList As Collection
@@ -882,6 +882,8 @@ Private Sub Form_Load()
     '로컬시스템 시간 사용여부 True-사용, False-미사용, 기본값(False)
     ClosedownService.UseLocalTimeYN = False
 End Sub
+
+
 
 
 
